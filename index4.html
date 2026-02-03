@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chris Peterson — RevenueCat Sr. Doc Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --rc-red: #E8383A;
+            --rc-red-light: #FEF2F2;
+            --rc-red-mid: #FECACA;
+            --ink: #1A1A1A;
+            --ink-secondary: #6B7280;
+            --ink-tertiary: #9CA3AF;
+            --surface: #FFFFFF;
+            --surface-warm: #FAFAF8;
+            --border: #E8E8E4;
+            --border-light: #F0F0EC;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            background: var(--surface);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── TOP NAV ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 clamp(1.5rem, 5vw, 3rem);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: box-shadow 0.3s;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-brand-badge {
+            width: 32px;
+            height: 32px;
+            background: var(--rc-red);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-brand-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .nav-brand-sub {
+            font-size: 11px;
+            color: var(--ink-tertiary);
+            font-weight: 400;
+            margin-left: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+        }
+
+        .nav-link {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink-secondary);
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-link:hover {
+            color: var(--ink);
+            background: var(--surface-warm);
+        }
+
+        .nav-link.active {
+            background: var(--ink);
+            color: #fff;
+        }
+
+        /* ─── PAGE SYSTEM ─── */
+        .page {
+            display: none;
+            min-height: calc(100vh - 64px);
+            padding-top: 64px;
+        }
+
+        .page.active {
+            display: block;
+            animation: pageFade 0.35s ease;
+        }
+
+        @keyframes pageFade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── SHARED LAYOUT ─── */
+        .content-wrap {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .content-wrap-wide {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--rc-red);
+            margin-bottom: 12px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            background: var(--rc-red);
+            border-radius: 1px;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px clamp(1.5rem, 5vw, 3rem);
+            text-align: center;
+            color: var(--ink-tertiary);
+            font-size: 12px;
+        }
+
+        /* ════════════════════════════════════════════
+     PAGE: LANDING
+     ══════════════════════════════════════════ */
+        #page-home .hero {
+            padding: 100px 0 72px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        @media (max-width: 700px) {
+            #page-home .hero {
+                grid-template-columns: 1fr;
+                padding: 80px 0 48px;
+                gap: 32px;
+            }
+        }
+
+        .hero-left .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--rc-red);
+            background: var(--rc-red-light);
+            border: 1px solid var(--rc-red-mid);
+            padding: 5px 12px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+        }
+
+        .hero-left .eyebrow .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--rc-red);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .hero-left h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-left h1 em {
+            font-style: italic;
+            color: var(--rc-red);
+        }
+
+        .hero-left .hero-body {
+            margin-top: 20px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--ink-secondary);
+            max-width: 440px;
+        }
+
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hero-stat-card {
+            background: var(--surface-warm);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .hero-stat-card:hover {
+            border-color: var(--rc-red-mid);
+            box-shadow: 0 4px 16px rgba(232, 56, 58, 0.08);
+        }
+
+        .hero-stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .hero-stat-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .hero-stat-card p {
+            font-size: 12px;
+            color: var(--ink-tertiary);
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+
+        /* Artifact cards on home */
+        .artifacts-section {
+            padding: 16px 0 80px;
+        }
+
+        .artifacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .artifact-card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            background: var(--surface);
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .artifact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--rc-red);
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .artifact-card:hover {
+            border-color: var(--rc-red-mid);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .artifact-card:hover::before {
+            opacity: 1;
+        }
+
+        .artifact-card .artifact-num {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--ink-tertiary);
+            margin-bottom: 12px;
+        }
+
+        .artifact-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .artifact-card p {
+            font-size: 12px;
+            color: var(--ink-secondary);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .artifact-card .card-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--rc-red);
+            margin-top: 14px;
+        }
+
+        .artifact-card .card-arrow svg {
+            transition: transform 0.2s;
+        }
+
+        .artifact-card:hover .card-arrow svg {
+            transform: translateX(3px);
+        }
+
+        /* ════════════════════════════════════════════
+     PAGE: RESEARCH
+     ══════════════════════════════════════════ */
+        #page-research .research-hero {
+            padding: 80px 0 48px;
+        }
+
+        #page-research .research-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        #page-research .research-hero p {
+            font-size: 15px;
+            color: var(--ink-secondary);
+            line-height: 1.7;
+            max-width: 560px;
+            margin-top: 16px;
+        }
+
+        .context-bar {
+            background: #F8F7F4;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 48px;
+        }
+
+        .context-bar .ctx-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--rc-red-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .context-bar .ctx-icon svg {
+            width: 14px;
+            height: 14px;
+            color: var(--rc-red);
+        }
+
+        .context-bar p {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            line-height: 1.6;
+        }
+
+        .context-bar p strong {
+            color: var(--ink);
+        }
+
+        /* Research finding blocks */
+        .finding {
+            border-bottom: 1px solid var(--border-light);
+            padding: 36px 0;
+        }
+
+        .finding:last-child {
+            border-bottom: none;
+        }
+
+        .finding-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .finding-num {
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--rc-red);
+            background: var(--rc-red-light);
+            padding: 3px 10px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .finding h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .finding>p {
+            font-size: 14px;
+            color: var(--ink-secondary);
+            line-height: 1.7;
+        }
+
+        .finding-detail {
+            margin-top: 20px;
+            background: var(--surface-warm);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 22px;
+        }
+
+        .finding-detail h4 {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+        }
+
+        .finding-detail p {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            line-height: 1.65;
+        }
+
+        /* IA diagram (text-based flow) */
+        .ia-flow {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+        }
+
+        .ia-node {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .ia-node.highlight {
+            border-color: var(--rc-red);
+            background: var(--rc-red-light);
+            color: var(--rc-red);
+        }
+
+        .ia-arrow {
+            color: var(--ink-tertiary);
+            font-size: 18px;
+        }
+
+        /* Phased plan pills */
+        .phase-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .phase-row:last-child {
+            border-bottom: none;
+        }
+
+        .phase-badge {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            padding: 4px 10px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            min-width: 68px;
+            text-align: center;
+        }
+
+        .phase-badge.p1 {
+            background: var(--rc-red-light);
+            color: var(--rc-red);
+        }
+
+        .phase-badge.p2 {
+            background: #EEF2FF;
+            color: #4F46E5;
+        }
+
+        .phase-badge.p3 {
+            background: #ECFDF5;
+            color: #059669;
+        }
+
+        .phase-badge.p4 {
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+
+        .phase-row h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 3px;
+        }
+
+        .phase-row p {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            line-height: 1.5;
+        }
+
+        /* ════════════════════════════════════════════
+     PAGE: WORK
+     ══════════════════════════════════════════ */
+        #page-work .work-hero {
+            padding: 80px 0 40px;
+        }
+
+        #page-work .work-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        #page-work .work-hero p {
+            font-size: 15px;
+            color: var(--ink-secondary);
+            line-height: 1.7;
+            max-width: 560px;
+            margin-top: 14px;
+        }
+
+        .work-piece {
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            transition: box-shadow 0.25s;
+        }
+
+        .work-piece:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+        }
+
+        .work-piece-header {
+            padding: 28px 28px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .work-piece-header h3 {
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .work-piece-header p {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        .work-tag {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+            background: var(--surface-warm);
+            border: 1px solid var(--border);
+            color: var(--ink-secondary);
+        }
+
+        .work-piece-body {
+            padding: 20px 28px 28px;
+        }
+
+        .work-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 16px;
+        }
+
+        .tech-tag {
+            font-family: var(--mono);
+            font-size: 11px;
+            background: #F3F4F6;
+            color: #4B5563;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .work-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            padding: 8px 18px;
+            border: 1px solid var(--rc-red);
+            border-radius: 8px;
+            color: var(--rc-red);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            background: transparent;
+            transition: all 0.2s;
+        }
+
+        .work-link-btn:hover {
+            background: var(--rc-red);
+            color: #fff;
+        }
+
+        .work-link-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* SimpleNotes integration card - special treatment */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 560px) {
+            .integration-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .int-card {
+            background: var(--surface-warm);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .int-card h5 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .int-card p {
+            font-size: 12px;
+            color: var(--ink-secondary);
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        .int-card code {
+            font-family: var(--mono);
+            font-size: 11px;
+            background: #EEF2FF;
+            color: #4F46E5;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .int-card.highlight-card {
+            border-color: var(--rc-red-mid);
+            background: var(--rc-red-light);
+        }
+
+        .int-card.highlight-card h5 {
+            color: var(--rc-red);
+        }
+
+        /* ════════════════════════════════════════════
+     PAGE: RESUME
+     ══════════════════════════════════════════ */
+        #page-resume {
+            background: var(--surface-warm);
+        }
+
+        .resume-wrap {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px clamp(1.5rem, 5vw, 3rem) 80px;
+        }
+
+        .resume-header {
+            margin-bottom: 44px;
+            padding-bottom: 32px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .resume-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+        }
+
+        .resume-header .title {
+            font-size: 15px;
+            color: var(--ink-secondary);
+            margin-top: 4px;
+        }
+
+        .resume-header .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 14px;
+        }
+
+        .resume-header .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--ink-secondary);
+        }
+
+        .resume-header .contact-item svg {
+            width: 14px;
+            height: 14px;
+            color: var(--ink-tertiary);
+        }
+
+        .resume-section {
+            margin-bottom: 36px;
+        }
+
+        .resume-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--rc-red);
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--rc-red);
+            margin-bottom: 20px;
+        }
+
+        /* Professional Profile */
+        .resume-profile p {
+            font-size: 14px;
+            color: var(--ink-secondary);
+            line-height: 1.7;
+        }
+
+        /* Experience entries */
+        .exp-entry {
+            margin-bottom: 28px;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+        }
+
+        .exp-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .exp-header .exp-company {
+            font-size: 13px;
+            color: var(--ink-secondary);
+        }
+
+        .exp-header .exp-date {
+            font-size: 12px;
+            color: var(--ink-tertiary);
+            font-weight: 500;
+        }
+
+        .exp-bullets {
+            margin-top: 10px;
+        }
+
+        .exp-bullets li {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            line-height: 1.6;
+            padding: 3px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .exp-bullets li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 11px;
+            width: 5px;
+            height: 5px;
+            background: var(--rc-red);
+            border-radius: 50%;
+        }
+
+        /* Skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 500px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .skills-group h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            font-size: 12px;
+            font-weight: 500;
+            color: #4B5563;
+            background: #F3F4F6;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        /* Education */
+        .edu-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 6px 0;
+        }
+
+        .edu-row .edu-degree {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .edu-row .edu-school {
+            font-size: 13px;
+            color: var(--ink-tertiary);
+        }
+
+        /* ─── RESPONSIVE NAV ─── */
+        .nav-mobile-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-mobile-btn svg {
+            width: 22px;
+            height: 22px;
+            color: var(--ink);
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-mobile-btn {
+                display: block;
+            }
+
+            .mobile-menu {
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                border-bottom: 1px solid var(--border);
+                padding: 12px 20px;
+                display: none;
+                flex-direction: column;
+                gap: 4px;
+                z-index: 99;
+            }
+
+            .mobile-menu.open {
+                display: flex;
+            }
+
+            .mobile-menu .nav-link {
+                text-align: left;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ─── NAV ─── -->
+    <nav id="main-nav">
+        <div class="nav-brand" onclick="goTo('home')">
+            <div class="nav-brand-badge">RC</div>
+            <span class="nav-brand-text">Chris Peterson <span class="nav-brand-sub">Sr. Doc Manager</span></span>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <button class="nav-link active" data-page="home" onclick="goTo('home')">Overview</button>
+            <button class="nav-link" data-page="research" onclick="goTo('research')">Research</button>
+            <button class="nav-link" data-page="work" onclick="goTo('work')">Work</button>
+            <button class="nav-link" data-page="resume" onclick="goTo('resume')">Resume</button>
+        </div>
+        <button class="nav-mobile-btn" onclick="toggleMobileMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+        </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="nav-link" onclick="goTo('home');toggleMobileMenu()">Overview</button>
+        <button class="nav-link" onclick="goTo('research');toggleMobileMenu()">Research</button>
+        <button class="nav-link" onclick="goTo('work');toggleMobileMenu()">Work</button>
+        <button class="nav-link" onclick="goTo('resume');toggleMobileMenu()">Resume</button>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+     HOME PAGE
+     ══════════════════════════════════════════ -->
+    <div id="page-home" class="page active">
+        <div class="content-wrap-wide">
+            <div class="hero">
+                <div class="hero-left">
+                    <div class="eyebrow"><span class="dot"></span> Application for Senior Doc Manager</div>
+                    <h1>I spent a week<br>learning <em>RevenueCat</em><br>before applying.</h1>
+                    <p class="hero-body">
+                        Rather than send a resume cold, I wanted to show what I mean when I say I think in systems.
+                        Below is what I found, what I built, and how I'd approach the role — not as a pitch, but as a
+                        conversation starter.
+                    </p>
+                </div>
+                <div class="hero-right">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-icon" style="background:#FEF3C7;">📄</div>
+                        <div>
+                            <h4>Read the Docs</h4>
+                            <p>Walked through the current site as a developer would. Mapped navigation against user
+                                intent.</p>
+                        </div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-icon" style="background:#EEF2FF;">🔌</div>
+                        <div>
+                            <h4>Tried an Integration</h4>
+                            <p>Built a plan for a real app ("SimpleNotes") using RevenueCat across iOS, Android, and
+                                Web.</p>
+                        </div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-icon" style="background:#ECFDF5;">🛠️</div>
+                        <div>
+                            <h4>Built Two Prototypes</h4>
+                            <p>Turned findings into working code — a developer guide and a strategy preview — to prove
+                                the concepts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="artifacts-section">
+                <div class="section-label">What's inside</div>
+                <div class="artifacts-grid">
+                    <div class="artifact-card" onclick="goTo('research')">
+                        <div class="artifact-num">01</div>
+                        <h3>Research &amp; Observations</h3>
+                        <p>What I noticed about the current docs structure, and the questions that came up during my
+                            integration attempt.</p>
+                        <div class="card-arrow">Read findings <svg viewBox="0 0 16 16" width="14" height="14"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4" />
+                            </svg></div>
+                    </div>
+                    <div class="artifact-card" onclick="goTo('work')">
+                        <div class="artifact-num">02</div>
+                        <h3>Prototypes &amp; Demos</h3>
+                        <p>Two live sites I built plus the SimpleNotes integration plan. Tangible proof of what "docs as
+                            a product" looks like.</p>
+                        <div class="card-arrow">See the work <svg viewBox="0 0 16 16" width="14" height="14" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4" />
+                            </svg></div>
+                    </div>
+                    <div class="artifact-card" onclick="goTo('resume')">
+                        <div class="artifact-num">03</div>
+                        <h3>Resume</h3>
+                        <p>10+ years across HP, Poly, and Hewlett Packard Enterprise. Staff-level leadership in
+                            technical writing and information architecture.</p>
+                        <div class="card-arrow">View resume <svg viewBox="0 0 16 16" width="14" height="14" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4" />
+                            </svg></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>Chris Peterson &mdash; Austin, TX &mdash; chriskpeterson@gmail.com</footer>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+     RESEARCH PAGE
+     ══════════════════════════════════════════ -->
+    <div id="page-research" class="page">
+        <div class="content-wrap">
+            <div class="research-hero">
+                <div class="section-label">Research</div>
+                <h1>What I noticed<br>while exploring RevenueCat</h1>
+                <p>These aren't prescriptions — they're observations from someone who spent time actually using the
+                    product and reading the docs as a developer would. I flagged what felt like friction points and
+                    thought about how I'd approach them as a manager.</p>
+            </div>
+
+            <div class="context-bar">
+                <div class="ctx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4M12 8h.01" />
+                    </svg></div>
+                <p><strong>Context:</strong> I read through the current RevenueCat docs, attempted a hands-on
+                    integration plan for a cross-platform app, and compared the experience against what I'd expect from
+                    developer documentation at this level. Everything below is based on that process — not guesswork.
+                </p>
+            </div>
+
+            <!-- Finding 1 -->
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">#1</div>
+                    <h3>Navigation is organized around product modules, not developer goals</h3>
+                </div>
+                <p>The sidebar reflects internal structure — Entitlements, Paywalls, Experiments — rather than what a
+                    developer is actually trying to accomplish. When I was thinking "I want subscriptions working," I
+                    had to figure out which module mapped to that.</p>
+                <div class="finding-detail">
+                    <h4>What a goal-first IA could look like</h4>
+                    <div class="ia-flow">
+                        <div class="ia-node highlight">Getting Started</div>
+                        <div class="ia-arrow">→</div>
+                        <div class="ia-node">Core Concepts</div>
+                        <div class="ia-arrow">→</div>
+                        <div class="ia-node">Implementation</div>
+                        <div class="ia-arrow">→</div>
+                        <div class="ia-node">Monetization</div>
+                        <div class="ia-arrow">→</div>
+                        <div class="ia-node">Analytics</div>
+                    </div>
+                    <p style="margin-top:12px;">Each top-level section maps to a user intent, not an internal feature
+                        name. The concepts still live there — they're just surfaced in context.</p>
+                </div>
+            </div>
+
+            <!-- Finding 2 -->
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">#2</div>
+                    <h3>The conceptual layer is missing — developers jump in cold</h3>
+                </div>
+                <p>There's no single place that explains what the core objects are, why they exist, and how they relate
+                    to each other before you start coding. I had to piece together the relationship between Products,
+                    Offerings, Packages, and Entitlements across several pages.</p>
+                <div class="finding-detail">
+                    <h4>The relationship I had to reconstruct</h4>
+                    <div class="ia-flow">
+                        <div class="ia-node">Store Product</div>
+                        <div class="ia-arrow">→</div>
+                        <div class="ia-node">Offering</div>
+                        <div class="ia-arrow">→</div>
+                        <div class="ia-node">Package</div>
+                        <div class="ia-arrow">→</div>
+                        <div class="ia-node highlight">Purchase</div>
+                        <div class="ia-arrow">→</div>
+                        <div class="ia-node">Entitlement</div>
+                    </div>
+                    <p style="margin-top:12px;">A "Core Concepts" section with diagrams and relationship maps would get
+                        new developers oriented in minutes instead of hours.</p>
+                </div>
+            </div>
+
+            <!-- Finding 3 -->
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">#3</div>
+                    <h3>Onboarding measures "steps completed," not "outcome achieved"</h3>
+                </div>
+                <p>The quickstart says "create a project" and "add a product" — but there's no clear north star like
+                    "make your first test purchase and see it in the dashboard." Outcome-based guides would give
+                    developers a finish line to aim for.</p>
+                <div class="finding-detail">
+                    <h4>What verification looks like</h4>
+                    <p>After each guide, a "How to verify" block: make a sandbox purchase → confirm entitlement is
+                        active → see it reflected in the dashboard. It takes 30 seconds and builds confidence that the
+                        integration is actually working.</p>
+                </div>
+            </div>
+
+            <!-- Finding 4 -->
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">#4</div>
+                    <h3>API docs are informational, not interactive</h3>
+                </div>
+                <p>Endpoints are documented as static text. There's no try-it-out console, no schema-driven examples, no
+                    way to test authentication inline. For a product whose core value is simplifying payments, the API
+                    experience could match that standard.</p>
+                <div class="finding-detail">
+                    <h4>Potential approach</h4>
+                    <p>OpenAPI as the source of truth, rendered with something like Scalar — giving you a try-it-out
+                        console, copyable examples, and schema validation without leaving the docs. This is a bigger
+                        lift, but it's what separates good dev docs from great ones.</p>
+                </div>
+            </div>
+
+            <!-- Phased thinking -->
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">→</div>
+                    <h3>How I'd phase this (if it were my call)</h3>
+                </div>
+                <p>I wouldn't try to do everything at once. Here's the order that makes sense to me based on what had
+                    the most friction:</p>
+                <div style="margin-top:20px;">
+                    <div class="phase-row">
+                        <div class="phase-badge p1">Phase 1</div>
+                        <div>
+                            <h4>Core Concepts + Diagrams</h4>
+                            <p>Write the foundational "what is this and why does it exist" pages. Add relationship
+                                diagrams. This unblocks everything else.</p>
+                        </div>
+                    </div>
+                    <div class="phase-row">
+                        <div class="phase-badge p2">Phase 2</div>
+                        <div>
+                            <h4>Goal-Based Navigation</h4>
+                            <p>Reorganize the sidebar around user intent. Add cross-links between related concepts,
+                                guides, and API endpoints.</p>
+                        </div>
+                    </div>
+                    <div class="phase-row">
+                        <div class="phase-badge p3">Phase 3</div>
+                        <div>
+                            <h4>Verification Loops</h4>
+                            <p>Add "how to verify" blocks after every guide. Add outcome-based learning paths.</p>
+                        </div>
+                    </div>
+                    <div class="phase-row">
+                        <div class="phase-badge p4">Phase 4</div>
+                        <div>
+                            <h4>Interactive API Docs</h4>
+                            <p>OpenAPI spec + interactive renderer. Bigger investment, but high payoff for developer
+                                experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>Chris Peterson &mdash; Austin, TX &mdash; chriskpeterson@gmail.com</footer>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+     WORK PAGE
+     ══════════════════════════════════════════ -->
+    <div id="page-work" class="page">
+        <div class="content-wrap">
+            <div class="work-hero">
+                <div class="section-label">Work</div>
+                <h1>Things I built<br>while researching</h1>
+                <p>Ideas are cheap. I'd rather show you what I do with them. These are live, working prototypes — not
+                    mockups or wireframes. Each one came out of a specific question I was trying to answer.</p>
+            </div>
+
+            <!-- Piece 1: Developer Guide -->
+            <div class="work-piece">
+                <div class="work-piece-header">
+                    <div>
+                        <h3>Developer Integration Guide</h3>
+                        <p>A self-contained docs mini-site that walks a developer through a RevenueCat integration
+                            end-to-end. Multi-language code snippets, error reference, store setup checklist — the whole
+                            thing in one page.</p>
+                    </div>
+                    <div class="work-tag">Live Demo</div>
+                </div>
+                <div class="work-piece-body">
+                    <p style="font-size:13px; color:var(--ink-secondary); line-height:1.6;">
+                        <strong>Why I built it:</strong> I wanted to prove that the "copy-paste ready, outcome-focused"
+                        approach from my research notes actually works in practice. This is what a stripped-down,
+                        developer-first guide looks like when you prioritize speed and clarity over comprehensiveness.
+                    </p>
+                    <div class="work-tags-row">
+                        <span class="tech-tag">Swift</span>
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Single-Page App</span>
+                        <span class="tech-tag">Error Reference</span>
+                    </div>
+                    <a class="work-link-btn" href="index_demo1.html" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                        Open the guide
+                    </a>
+                </div>
+            </div>
+
+            <!-- Piece 2: Strategy Preview -->
+            <div class="work-piece">
+                <div class="work-piece-header">
+                    <div>
+                        <h3>Manager Strategy &amp; Experience Preview</h3>
+                        <p>A two-view site: an executive strategy document (12-month roadmap, contextual inquiry
+                            findings, task flow analysis) and an interactive preview of what the new docs experience
+                            could look like.</p>
+                    </div>
+                    <div class="work-tag">Live Demo</div>
+                </div>
+                <div class="work-piece-body">
+                    <p style="font-size:13px; color:var(--ink-secondary); line-height:1.6;">
+                        <strong>Why I built it:</strong> This one explores the "manager" side — how you'd communicate
+                        the strategy to stakeholders, what a 3-column API reference looks like in practice, and how
+                        contextual inquiry findings translate into concrete fixes. It's the kind of artifact I'd produce
+                        in Month 1.
+                    </p>
+                    <div class="work-tags-row">
+                        <span class="tech-tag">Executive Roadmap</span>
+                        <span class="tech-tag">API Reference UI</span>
+                        <span class="tech-tag">Contextual Inquiry</span>
+                        <span class="tech-tag">Style Guide</span>
+                        <span class="tech-tag">AI Readability</span>
+                    </div>
+                    <a class="work-link-btn" href="index_demo2.html" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                        Open the preview
+                    </a>
+                </div>
+            </div>
+
+            <!-- Piece 3: SimpleNotes Integration Plan -->
+            <div class="work-piece">
+                <div class="work-piece-header">
+                    <div>
+                        <h3>SimpleNotes — Integration Plan</h3>
+                        <p>A concrete plan for integrating RevenueCat into a real cross-platform app. Not hypothetical —
+                            I mapped out every step from dashboard setup to entitlement verification across three
+                            platforms.</p>
+                    </div>
+                    <div class="work-tag">Planning Doc</div>
+                </div>
+                <div class="work-piece-body">
+                    <p style="font-size:13px; color:var(--ink-secondary); line-height:1.6;">
+                        <strong>Why I built it:</strong> To find where the docs actually break down, you have to try
+                        using them. I designed a freemium note-taking app and walked through the entire RevenueCat setup
+                        as if I were the developer. The gaps I found informed everything in the Research section.
+                    </p>
+                    <div class="integration-grid">
+                        <div class="int-card">
+                            <h5>The App</h5>
+                            <p>React Native (Expo) note-taking app. Free tier: 3 notes. Premium: unlimited.</p>
+                        </div>
+                        <div class="int-card highlight-card">
+                            <h5>The Entitlement</h5>
+                            <p>Single entitlement: <code>pro_access</code>. One check in code unlocks everything.</p>
+                        </div>
+                        <div class="int-card">
+                            <h5>Mobile (iOS + Android)</h5>
+                            <p>Uses <code>react-native-purchases</code>. Wraps StoreKit and Google Play Billing.</p>
+                        </div>
+                        <div class="int-card">
+                            <h5>Web</h5>
+                            <p>Uses <code>@revenuecat/purchases-js</code>. RevenueCat handles Stripe under the hood.</p>
+                        </div>
+                    </div>
+                    <div class="work-tags-row" style="margin-top:18px;">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Expo</span>
+                        <span class="tech-tag">Stripe (Web)</span>
+                        <span class="tech-tag">iOS / Android / Web</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>Chris Peterson &mdash; Austin, TX &mdash; chriskpeterson@gmail.com</footer>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+     RESUME PAGE
+     ══════════════════════════════════════════ -->
+    <div id="page-resume" class="page">
+        <div class="resume-wrap">
+
+            <div class="resume-header">
+                <h1>Chris Peterson</h1>
+                <div class="title">Staff Technical Writer (Lead) &mdash; HP / Poly</div>
+                <div class="contact-row">
+                    <span class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        Austin, TX
+                    </span>
+                    <span class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                        chriskpeterson@gmail.com
+                    </span>
+                    <span class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
+                            <rect x="2" y="9" width="4" height="12" />
+                            <circle cx="4" cy="4" r="2" />
+                        </svg>
+                        LinkedIn
+                    </span>
+                    <span class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        713-344-4988
+                    </span>
+                </div>
+            </div>
+
+            <!-- Professional Profile -->
+            <div class="resume-section resume-profile">
+                <div class="resume-section-title">Professional Profile</div>
+                <p>Technical operations and strategy leader with over a decade of experience optimizing information
+                    architecture and automating content workflows. Expert in bridging the gap between engineering,
+                    product, and marketing teams to deliver scalable communications solutions. Proven track record of
+                    managing complex cross-functional programs to increase efficiency and reduce support costs.</p>
+            </div>
+
+            <!-- Experience -->
+            <div class="resume-section">
+                <div class="resume-section-title">Experience</div>
+
+                <div class="exp-entry">
+                    <div class="exp-header">
+                        <h3>Staff Technical Writer (Lead)</h3>
+                        <span class="exp-date">Apr 2022 – Present</span>
+                    </div>
+                    <div class="exp-company">HP / Poly &middot; Austin, TX</div>
+                    <ul class="exp-bullets">
+                        <li><strong>AI-First Documentation:</strong> Reduced time to create release notes by working
+                            with internal AI engineers to create an AI agent and tool to capture Jira and Confluence
+                            data.</li>
+                        <li><strong>Strategic Program Management:</strong> Lead operations and content strategy for HP's
+                            high-profile partnership with Google on Project Beam, orchestrating complex workstreams
+                            across hardware and software teams.</li>
+                        <li><strong>Cross-Functional Leadership:</strong> Primary liaison between technical teams,
+                            Product Management, Engineering, and UX — ensuring deliverables align with technical
+                            requirements and business goals.</li>
+                        <li><strong>Data-Driven Strategy:</strong> Initiated a team-wide content strategy shift from
+                            feature-based to solution-driven outcomes, significantly enhancing customer understanding
+                            and product adoption.</li>
+                        <li><strong>Team Operations:</strong> Managed work balancing across a five-member team,
+                            onboarding new writers while maintaining delivery schedules for multiple hardware launches.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="exp-entry">
+                    <div class="exp-header">
+                        <h3>Senior Technical Writer</h3>
+                        <span class="exp-date">Oct 2019 – Apr 2022</span>
+                    </div>
+                    <div class="exp-company">Poly (Plantronics, Inc.) &middot; Austin, TX</div>
+                    <ul class="exp-bullets">
+                        <li><strong>Workflow Automation:</strong> Partnered with Zoomin to create an XSLT transform to
+                            automate metadata facet conversion, eliminating manual data entry errors.</li>
+                        <li><strong>Metadata &amp; Search Architecture:</strong> Spearheaded cross-functional
+                            initiatives to improve metadata, optimize folder hierarchy, and enhance search filtering for
+                            improved content discoverability.</li>
+                        <li><strong>System Migration:</strong> Key role in the transition from Vasont to SDL Tridion,
+                            shaping the company's documentation metadata and taxonomy strategy.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-entry">
+                    <div class="exp-header">
+                        <h3>Information Developer</h3>
+                        <span class="exp-date">Jun 2013 – Oct 2019</span>
+                    </div>
+                    <div class="exp-company">Hewlett Packard Enterprise &middot; Houston, TX</div>
+                    <ul class="exp-bullets">
+                        <li><strong>Tool Development:</strong> Designed and delivered an interactive compatibility
+                            matrix dashboard that synthesized complex hardware data, reducing field confusion and
+                            service tickets.</li>
+                        <li><strong>Stakeholder Management:</strong> Represented the team in strategic lab walkthroughs
+                            and architecture reviews with engineering and QA leadership.</li>
+                        <li><strong>Change Management:</strong> Led a major content migration across CCMS platforms
+                            (Author-it/Vasont to SDL Tridion), training writers on DITA workflows.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-entry">
+                    <div class="exp-header">
+                        <h3>Document Services Manager</h3>
+                        <span class="exp-date">Sep 2003 – Nov 2008</span>
+                    </div>
+                    <div class="exp-company">Guy Carpenter &amp; Company &middot; New York, NY</div>
+                    <ul class="exp-bullets">
+                        <li><strong>Operations Management:</strong> Managed a 16-person operations team across multiple
+                            locations, overseeing budget, vendor contracts, and service delivery quality.</li>
+                        <li><strong>Cost Reduction:</strong> Reduced annual department spend by over $300K by
+                            renegotiating leases and optimizing print operations.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="resume-section">
+                <div class="resume-section-title">Technical Skills &amp; Tools</div>
+                <div class="skills-grid">
+                    <div class="skills-group">
+                        <h4>Automation &amp; Languages</h4>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">XML / XSLT</span>
+                            <span class="skill-tag">HTML / CSS</span>
+                            <span class="skill-tag">Regex</span>
+                        </div>
+                    </div>
+                    <div class="skills-group">
+                        <h4>Platforms &amp; Tools</h4>
+                        <div class="skills-tags">
+                            <span class="skill-tag">SDL Tridion</span>
+                            <span class="skill-tag">Confluence / Jira</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">SharePoint</span>
+                            <span class="skill-tag">Zoomin</span>
+                        </div>
+                    </div>
+                    <div class="skills-group">
+                        <h4>Methodologies</h4>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Docs-as-Code</span>
+                            <span class="skill-tag">Information Architecture</span>
+                            <span class="skill-tag">Taxonomy Management</span>
+                            <span class="skill-tag">DITA</span>
+                            <span class="skill-tag">Agile / Scrum</span>
+                        </div>
+                    </div>
+                    <div class="skills-group">
+                        <h4>Emerging</h4>
+                        <div class="skills-tags">
+                            <span class="skill-tag">AI/LLM Workflows</span>
+                            <span class="skill-tag">Structured Data</span>
+                            <span class="skill-tag">RAG-Optimized Content</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="resume-section">
+                <div class="resume-section-title">Education</div>
+                <div class="edu-row">
+                    <span class="edu-degree">B.S. Industrial Design</span>
+                    <span class="edu-school">University of Houston</span>
+                </div>
+                <div class="edu-row">
+                    <span class="edu-degree">B.A. English (Minor: Studio Arts)</span>
+                    <span class="edu-school">University of Houston</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ─── JS ─── -->
+    <script>
+        (function () {
+            // ── Navigation
+            function goTo(pageId) {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.nav-link[data-page]').forEach(l => l.classList.remove('active'));
+                const target = document.getElementById('page-' + pageId);
+                if (target) { target.classList.add('active'); window.scrollTo(0, 0); }
+                const activeBtn = document.querySelector('.nav-link[data-page="' + pageId + '"]');
+                if (activeBtn) activeBtn.classList.add('active');
+            }
+            window.goTo = goTo;
+
+            // ── Mobile menu
+            function toggleMobileMenu() {
+                document.getElementById('mobile-menu').classList.toggle('open');
+            }
+            window.toggleMobileMenu = toggleMobileMenu;
+
+            // ── Nav shadow on scroll
+            window.addEventListener('scroll', () => {
+                document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 10);
+            });
+        })();
+    </script>
+</body>
+
+</html>
