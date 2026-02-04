@@ -201,7 +201,7 @@
      PAGE: LANDING
      ══════════════════════════════════════════ */
         #page-home .hero {
-            padding: 100px 0 72px;
+            padding: 100px 0 48px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 64px;
@@ -270,6 +270,42 @@
             line-height: 1.7;
             color: var(--ink-secondary);
             max-width: 440px;
+        }
+
+        /* Transparency note box */
+        .transparency-box {
+            background: linear-gradient(135deg, rgba(232, 56, 58, 0.04), rgba(254, 242, 242, 0.6));
+            border: 1px solid var(--rc-red-mid);
+            border-left: 3px solid var(--rc-red);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 32px 0 48px;
+        }
+
+        .transparency-box h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .transparency-box p {
+            font-size: 14px;
+            color: var(--ink-secondary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .transparency-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .transparency-box strong {
+            color: var(--ink);
+            font-weight: 600;
         }
 
         .hero-right {
@@ -492,6 +528,32 @@
             margin-top: 1px;
         }
 
+        .severity-badge {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .severity-badge.critical {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .severity-badge.high {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .severity-badge.medium {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
         .finding h3 {
             font-size: 18px;
             font-weight: 600;
@@ -527,6 +589,27 @@
             line-height: 1.65;
         }
 
+        .finding-detail ul {
+            margin-left: 18px;
+            margin-top: 8px;
+        }
+
+        .finding-detail li {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            line-height: 1.65;
+            margin-bottom: 6px;
+        }
+
+        .finding-detail code {
+            font-family: var(--mono);
+            font-size: 12px;
+            background: rgba(232, 56, 58, 0.08);
+            color: var(--rc-red);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
         /* IA diagram (text-based flow) */
         .ia-flow {
             display: flex;
@@ -555,6 +638,59 @@
         .ia-arrow {
             color: var(--ink-tertiary);
             font-size: 18px;
+        }
+
+        /* Solutions callout box */
+        .solutions-box {
+            background: white;
+            border: 2px solid var(--rc-red);
+            border-radius: 14px;
+            padding: 28px 30px;
+            margin-top: 48px;
+        }
+
+        .solutions-box h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--rc-red);
+            margin-bottom: 20px;
+        }
+
+        .solutions-box ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .solutions-box li {
+            padding: 10px 0 10px 24px;
+            position: relative;
+            font-size: 14px;
+            color: var(--ink-secondary);
+            line-height: 1.7;
+        }
+
+        .solutions-box li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--rc-red);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .solutions-box li strong {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .solutions-box li code {
+            font-family: var(--mono);
+            font-size: 12px;
+            background: rgba(232, 56, 58, 0.08);
+            color: var(--rc-red);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         /* Phased plan pills */
@@ -637,6 +773,26 @@
             line-height: 1.7;
             max-width: 560px;
             margin-top: 14px;
+        }
+
+        .work-disclaimer {
+            background: #FFF7ED;
+            border: 1px solid #FED7AA;
+            border-left: 3px solid #F97316;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 36px;
+        }
+
+        .work-disclaimer p {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            line-height: 1.6;
+        }
+
+        .work-disclaimer strong {
+            color: var(--ink);
+            font-weight: 600;
         }
 
         .work-piece {
@@ -781,6 +937,63 @@
 
         .int-card.highlight-card h5 {
             color: var(--rc-red);
+        }
+
+        /* ════════════════════════════════════════════
+     PAGE: TAXONOMY (NEW) - STYLES
+     ══════════════════════════════════════════ */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media(max-width:560px) {
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ai-meta-block {
+            background: #16161A;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: #7B9CF5;
+            line-height: 1.8;
+        }
+
+        .ai-meta-block .dim {
+            color: #484F58;
+        }
+
+        .ai-meta-block .key {
+            color: #C4C8CC;
+        }
+
+        .tf-observation {
+            background: var(--rc-red-light);
+            border: 1px solid var(--rc-red-mid);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .tf-observation h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--rc-red);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tf-observation p {
+            font-size: 13px;
+            color: #7F1D1D;
+            line-height: 1.6;
         }
 
         /* ════════════════════════════════════════════
@@ -1021,7 +1234,6 @@
 
 <body>
 
-    <!-- ─── NAV ─── -->
     <nav id="main-nav">
         <div class="nav-brand" onclick="goTo('home')">
             <div class="nav-brand-badge">RC</div>
@@ -1031,6 +1243,7 @@
             <button class="nav-link active" data-page="home" onclick="goTo('home')">Overview</button>
             <button class="nav-link" data-page="research" onclick="goTo('research')">Research</button>
             <button class="nav-link" data-page="work" onclick="goTo('work')">Work</button>
+            <button class="nav-link" data-page="taxonomy" onclick="goTo('taxonomy')">Taxonomy</button>
             <button class="nav-link" data-page="resume" onclick="goTo('resume')">Resume</button>
         </div>
         <button class="nav-mobile-btn" onclick="toggleMobileMenu()">
@@ -1045,50 +1258,61 @@
         <button class="nav-link" onclick="goTo('home');toggleMobileMenu()">Overview</button>
         <button class="nav-link" onclick="goTo('research');toggleMobileMenu()">Research</button>
         <button class="nav-link" onclick="goTo('work');toggleMobileMenu()">Work</button>
+        <button class="nav-link" onclick="goTo('taxonomy');toggleMobileMenu()">Taxonomy</button>
         <button class="nav-link" onclick="goTo('resume');toggleMobileMenu()">Resume</button>
     </div>
 
-    <!-- ════════════════════════════════════════════
-     HOME PAGE
-     ══════════════════════════════════════════ -->
     <div id="page-home" class="page active">
         <div class="content-wrap-wide">
             <div class="hero">
                 <div class="hero-left">
                     <div class="eyebrow"><span class="dot"></span> Application for Senior Doc Manager</div>
-                    <h1>I spent time <br>learning <em>RevenueCat</em><br>before applying.</h1>
+                    <h1>I spent time<br>researching <em>RevenueCat</em><br>with AI as my research partner.</h1>
                     <p class="hero-body">
-                        Rather than send a resume cold, I wanted to show what I mean when I say I think in systems.
-                        Below is what I found, what I built, and how I'd approach the role — not as a pitch, but as a
-                        conversation starter.
+                        Rather than send a resume cold, I wanted to show how I work: combining deep research,
+                        AI-assisted prototyping, and a systems-thinking approach to documentation strategy.
                     </p>
                 </div>
                 <div class="hero-right">
                     <div class="hero-stat-card">
                         <div class="hero-stat-icon" style="background:#FEF3C7;">📄</div>
                         <div>
-                            <h4>Read the Docs</h4>
-                            <p>Walked through the current site as a developer would. Mapped navigation against user
-                                intent.</p>
+                            <h4>Deep Research</h4>
+                            <p>Analyzed the current docs site, SDK implementation guides, user forums, and developer
+                                sentiment.</p>
                         </div>
                     </div>
                     <div class="hero-stat-card">
-                        <div class="hero-stat-icon" style="background:#EEF2FF;">🔌</div>
+                        <div class="hero-stat-icon" style="background:#EEF2FF;">🤖</div>
                         <div>
-                            <h4>Tried an Integration</h4>
-                            <p>Built a plan for a real app ("SimpleNotes") using RevenueCat across iOS, Android, and
-                                Web.</p>
+                            <h4>AI-Assisted Prototyping</h4>
+                            <p>Used NotebookLM, Claude, and Gemini to rapidly build working prototypes based on my
+                                findings.</p>
                         </div>
                     </div>
                     <div class="hero-stat-card">
-                        <div class="hero-stat-icon" style="background:#ECFDF5;">🛠️</div>
+                        <div class="hero-stat-icon" style="background:#ECFDF5;">✍️</div>
                         <div>
-                            <h4>Built Two Prototypes</h4>
-                            <p>Turned findings into working code — a developer guide and a strategy preview — to prove
-                                the concepts.</p>
+                            <h4>Human Refinement</h4>
+                            <p>Every output gets my review. I bring docs-as-code experience and editorial judgment.</p>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="transparency-box">
+                <h4>🔍 About my process</h4>
+                <p>
+                    I conducted extensive research on RevenueCat's SDK implementation docs, user feedback across forums
+                    and social media, and developer sentiment analysis. I synthesized that research in NotebookLM, then
+                    used Claude and Gemini to help build these prototypes based on my findings. <strong>The insights and
+                        strategy are mine — AI helped me communicate them quickly.</strong>
+                </p>
+                <p>
+                    As a documentation manager in 2026, leveraging AI to rapidly prototype ideas and test approaches is
+                    part of the job. What matters is the quality of the research, the soundness of the strategy, and the
+                    ability to refine AI outputs into something genuinely useful.
+                </p>
             </div>
 
             <div class="artifacts-section">
@@ -1097,8 +1321,8 @@
                     <div class="artifact-card" onclick="goTo('research')">
                         <div class="artifact-num">01</div>
                         <h3>Research &amp; Observations</h3>
-                        <p>What I noticed about the current docs structure, and the questions that came up during my
-                            integration attempt.</p>
+                        <p>Deep dive into how developers actually use RevenueCat, where they get stuck, and what causes
+                            them to abandon integrations.</p>
                         <div class="card-arrow">Read findings <svg viewBox="0 0 16 16" width="14" height="14"
                                 fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M3 8h10M9 4l4 4-4 4" />
@@ -1114,8 +1338,18 @@
                                 <path d="M3 8h10M9 4l4 4-4 4" />
                             </svg></div>
                     </div>
-                    <div class="artifact-card" onclick="goTo('resume')">
+                    <div class="artifact-card" onclick="goTo('taxonomy')">
                         <div class="artifact-num">03</div>
+                        <h3>Taxonomy &amp; Metadata</h3>
+                        <p>A structural blueprint for a scalable Knowledge Base. Moving from a collection of pages to a
+                            searchable, machine-readable information engine.</p>
+                        <div class="card-arrow">View Taxonomy <svg viewBox="0 0 16 16" width="14" height="14"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4" />
+                            </svg></div>
+                    </div>
+                    <div class="artifact-card" onclick="goTo('resume')">
+                        <div class="artifact-num">04</div>
                         <h3>Resume</h3>
                         <p>10+ years across HP, Poly, and Hewlett Packard Enterprise. Staff-level leadership in
                             technical writing and information architecture.</p>
@@ -1130,17 +1364,15 @@
         <footer>Chris Peterson &mdash; Austin, TX &mdash; chriskpeterson@gmail.com</footer>
     </div>
 
-    <!-- ════════════════════════════════════════════
-     RESEARCH PAGE
-     ══════════════════════════════════════════ -->
     <div id="page-research" class="page">
         <div class="content-wrap">
             <div class="research-hero">
                 <div class="section-label">Research</div>
-                <h1>What I noticed<br>while exploring RevenueCat</h1>
-                <p>These aren't prescriptions — they're observations from someone who spent time actually using the
-                    product and reading the docs as a developer would. I flagged what felt like friction points and
-                    thought about how I'd approach them as a manager.</p>
+                <h1>What I discovered<br>about RevenueCat</h1>
+                <p>These aren't prescriptions — they're observations from deep research into how developers actually use
+                    the product, where they get stuck, and what causes them to abandon integrations. I focused on the
+                    "vibe coder" persona: indie developers and small teams who want to experiment quickly and iterate.
+                </p>
             </div>
 
             <div class="context-bar">
@@ -1148,159 +1380,250 @@
                         <circle cx="12" cy="12" r="10" />
                         <path d="M12 16v-4M12 8h.01" />
                     </svg></div>
-                <p><strong>Context:</strong> I read through the current RevenueCat docs, attempted a hands-on
-                    integration plan for a cross-platform app, and compared the experience against what I'd expect from
-                    developer documentation at this level. Everything below is based on that process — not guesswork.
+                <p><strong>My methodology:</strong> I conducted extensive research using Google to explore RevenueCat's
+                    SDK documentation site, user reviews, Reddit discussions, and developer sentiment across forums. I
+                    synthesized findings in NotebookLM and used Claude/Gemini to help structure and communicate the
+                    insights below. The analysis and strategic recommendations are mine.
                 </p>
             </div>
 
-            <!-- Finding 1 -->
             <div class="finding">
                 <div class="finding-header">
                     <div class="finding-num">#1</div>
-                    <h3>Navigation is organized around product modules, not developer goals</h3>
+                    <div class="severity-badge critical">🔥 Critical</div>
+                    <div style="flex: 1;"></div>
                 </div>
-                <p>The sidebar reflects internal structure — Entitlements, Paywalls, Experiments — rather than what a
-                    developer is actually trying to accomplish. When I was thinking "I want subscriptions working," I
-                    had to figure out which module mapped to that.</p>
+                <h3>Too much prerequisite setup before code</h3>
+                <p>The documentation forces developers through extensive dashboard configuration (projects, products,
+                    entitlements, offerings) before they can write a single line of code. Vibe coders want to start
+                    coding immediately and see results.</p>
                 <div class="finding-detail">
-                    <h4>What a goal-first IA could look like</h4>
-                    <div class="ia-flow">
-                        <div class="ia-node highlight">Getting Started</div>
-                        <div class="ia-arrow">→</div>
-                        <div class="ia-node">Core Concepts</div>
-                        <div class="ia-arrow">→</div>
-                        <div class="ia-node">Implementation</div>
-                        <div class="ia-arrow">→</div>
-                        <div class="ia-node">Monetization</div>
-                        <div class="ia-arrow">→</div>
-                        <div class="ia-node">Analytics</div>
-                    </div>
-                    <p style="margin-top:12px;">Each top-level section maps to a user intent, not an internal feature
-                        name. The concepts still live there — they're just surfaced in context.</p>
+                    <h4>What developers are saying</h4>
+                    <p>"I just wanted to try it out and spent 45 minutes in the dashboard before I even opened my IDE."
+                        — Reddit user</p>
+                </div>
+                <div class="finding-detail">
+                    <h4>Quick win</h4>
+                    <p>The "Test Store" feature exists but it's buried. Make it the hero of the quickstart:
+                        <strong>"Skip the dashboard setup — use Test Store to start coding in 60 seconds."</strong>
+                    </p>
                 </div>
             </div>
 
-            <!-- Finding 2 -->
             <div class="finding">
                 <div class="finding-header">
                     <div class="finding-num">#2</div>
-                    <h3>The conceptual layer is missing — developers jump in cold</h3>
+                    <div class="severity-badge critical">🔥 Critical</div>
+                    <div style="flex: 1;"></div>
                 </div>
-                <p>There's no single place that explains what the core objects are, why they exist, and how they relate
-                    to each other before you start coding. I had to piece together the relationship between Products,
-                    Offerings, Packages, and Entitlements across several pages.</p>
+                <h3>Platform-specific API keys are confusing</h3>
+                <p>RevenueCat uses separate API keys for iOS and Android (starting with <code>app...</code> and
+                    <code>goog...</code>). Multiple developers thought "app" meant "application" not "Apple." One
+                    developer wasted 3 weeks on this.
+                </p>
                 <div class="finding-detail">
-                    <h4>The relationship I had to reconstruct</h4>
-                    <div class="ia-flow">
-                        <div class="ia-node">Store Product</div>
-                        <div class="ia-arrow">→</div>
-                        <div class="ia-node">Offering</div>
-                        <div class="ia-arrow">→</div>
-                        <div class="ia-node">Package</div>
-                        <div class="ia-arrow">→</div>
-                        <div class="ia-node highlight">Purchase</div>
-                        <div class="ia-arrow">→</div>
-                        <div class="ia-node">Entitlement</div>
-                    </div>
-                    <p style="margin-top:12px;">A "Core Concepts" section with diagrams and relationship maps would get
-                        new developers oriented in minutes instead of hours.</p>
+                    <h4>The problem</h4>
+                    <p>Most SDKs use a single API key. This multi-key system is non-standard and poorly explained
+                        upfront.</p>
+                </div>
+                <div class="finding-detail">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li>Add a prominent callout box in the quickstart explaining the key naming convention</li>
+                        <li>Include a visual diagram showing which key goes where</li>
+                        <li>Add validation in the SDK that gives a helpful error if you use the wrong key</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Finding 3 -->
             <div class="finding">
                 <div class="finding-header">
                     <div class="finding-num">#3</div>
-                    <h3>Onboarding measures "steps completed," not "outcome achieved"</h3>
+                    <div class="severity-badge high">⚠️ High</div>
+                    <div style="flex: 1;"></div>
                 </div>
-                <p>The quickstart says "create a project" and "add a product" — but there's no clear north star like
-                    "make your first test purchase and see it in the dashboard." Outcome-based guides would give
-                    developers a finish line to aim for.</p>
+                <h3>Error messages are cryptic</h3>
+                <p>Error messages like "Error 23: There is an issue with your configuration. Check the underlying error
+                    for more details" provide no actionable information. For vibe coders who want to iterate quickly,
+                    cryptic errors are productivity killers.</p>
                 <div class="finding-detail">
-                    <h4>What verification looks like</h4>
-                    <p>After each guide, a "How to verify" block: make a sandbox purchase → confirm entitlement is
-                        active → see it reflected in the dashboard. It takes 30 seconds and builds confidence that the
-                        integration is actually working.</p>
+                    <h4>Better error message</h4>
+                    <p><code>Error 23: Your iOS API key (app_xxx) doesn't match this project. Double-check you're using the key from the same RevenueCat project. Common fix: Verify in Dashboard → App Settings → API Keys</code>
+                    </p>
                 </div>
             </div>
 
-            <!-- Finding 4 -->
             <div class="finding">
                 <div class="finding-header">
                     <div class="finding-num">#4</div>
-                    <h3>API docs are informational, not interactive</h3>
+                    <div class="severity-badge high">⚠️ High</div>
+                    <div style="flex: 1;"></div>
                 </div>
-                <p>Endpoints are documented as static text. There's no try-it-out console, no schema-driven examples, no
-                    way to test authentication inline. For a product whose core value is simplifying payments, the API
-                    experience could match that standard.</p>
+                <h3>No simple "Hello World" example</h3>
+                <p>There's no minimal, copy-paste example that shows a complete working flow from configuration to
+                    purchase in 10 lines of code. The quickstart jumps into comprehensive setup rather than showing the
+                    simplest possible working example first.</p>
                 <div class="finding-detail">
-                    <h4>Potential approach</h4>
-                    <p>OpenAPI as the source of truth, rendered with something like Scalar — giving you a try-it-out
-                        console, copyable examples, and schema validation without leaving the docs. This is a bigger
-                        lift, but it's what separates good dev docs from great ones.</p>
+                    <h4>What vibe coders want</h4>
+                    <p>A <code>npx create-revenuecat-app</code> command that scaffolds a working project with Test Store
+                        configured, ready to run immediately.</p>
                 </div>
             </div>
 
-            <!-- Phased thinking -->
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">#5</div>
+                    <div class="severity-badge medium">📊 Medium</div>
+                    <div style="flex: 1;"></div>
+                </div>
+                <h3>Too much theory before practice</h3>
+                <p>The docs explain concepts like "entitlements vs products vs offerings" extensively before showing
+                    working code. Vibe coders prefer learning by doing — show the code first, explain the architecture
+                    later.</p>
+                <div class="finding-detail">
+                    <h4>Proposed structure</h4>
+                    <ul>
+                        <li><strong>Path 1: Fast Start</strong> — Working code in 5 minutes, minimal explanation</li>
+                        <li><strong>Path 2: Deep Dive</strong> — Comprehensive concepts and architecture</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">#6</div>
+                    <div class="severity-badge high">⚠️ High</div>
+                    <div style="flex: 1;"></div>
+                </div>
+                <h3>Configuration troubleshooting is reactive, not proactive</h3>
+                <p>The most common issue (empty products/offerings) has an entire troubleshooting page, but this
+                    information should be front-loaded in the setup guide with clear warnings about common pitfalls.</p>
+                <div class="finding-detail">
+                    <h4>Solution</h4>
+                    <p>Add "🚨 Common mistake" callouts directly in the setup steps where errors typically occur, not
+                        buried in a separate troubleshooting section.</p>
+                </div>
+            </div>
+
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">#7</div>
+                    <div class="severity-badge medium">📊 Medium</div>
+                    <div style="flex: 1;"></div>
+                </div>
+                <h3>Cross-platform product configuration is unclear</h3>
+                <p>Setting up products that work on both iOS and Android is confusing. The docs don't clearly explain
+                    how to link products across platforms or that you need to create platform-specific products in both
+                    stores.</p>
+            </div>
+
+            <div class="finding">
+                <div class="finding-header">
+                    <div class="finding-num">#8</div>
+                    <div class="severity-badge medium">📊 Medium</div>
+                    <div style="flex: 1;"></div>
+                </div>
+                <h3>Sandbox vs Production path is murky</h3>
+                <p>The transition from Test Store → Sandbox → Production isn't clearly laid out as a progression.
+                    Developers struggle understanding when to connect real stores versus using the Test Store.</p>
+                <div class="finding-detail">
+                    <h4>Needed</h4>
+                    <p>A clear visual roadmap showing the three stages with when/why/how to move between them.</p>
+                </div>
+            </div>
+
+            <div class="solutions-box">
+                <h3>What would help vibe coders</h3>
+                <ul>
+                    <li><strong>One-command starter:</strong> <code>npx create-revenuecat-app</code> that sets up a
+                        working project with Test Store</li>
+                    <li><strong>Minimal working example first:</strong> 10 lines of code to show a paywall and complete
+                        a purchase</li>
+                    <li><strong>Better error messages:</strong> Include likely causes and fixes directly in the error
+                        text</li>
+                    <li><strong>"Fast path" vs "Complete path":</strong> Separate docs for quick/dirty starts vs.
+                        production-ready implementations</li>
+                    <li><strong>Interactive configuration checker:</strong> A tool that validates your setup and
+                        highlights misconfigurations</li>
+                </ul>
+            </div>
+
             <div class="finding">
                 <div class="finding-header">
                     <div class="finding-num">→</div>
-                    <h3>How I'd phase this (if it were my call)</h3>
+                    <h3>How this maps to the role</h3>
                 </div>
-                <p>I wouldn't try to do everything at once. Here's the order that makes sense to me based on what had
-                    the most friction:</p>
-                <div style="margin-top:20px;">
-                    <div class="phase-row">
-                        <div class="phase-badge p1">Phase 1</div>
-                        <div>
-                            <h4>Core Concepts + Diagrams</h4>
-                            <p>Write the foundational "what is this and why does it exist" pages. Add relationship
-                                diagrams. This unblocks everything else.</p>
-                        </div>
+                <p>The friction points above directly address the role's core challenges:</p>
+
+                <div style="margin-top:24px;">
+                    <div
+                        style="background:var(--surface-warm); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:12px;">
+                        <h4 style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:6px;">
+                            Information Architecture → Findings #1, #2, #5
+                        </h4>
+                        <p style="font-size:13px; color:var(--ink-secondary); line-height:1.6; margin:0;">
+                            Current IA is product-centric, not user-goal-centric. My "Fast Path vs Complete Path"
+                            proposal directly addresses serving different user segments (new apps vs existing apps vs
+                            partial feature users).
+                        </p>
                     </div>
-                    <div class="phase-row">
-                        <div class="phase-badge p2">Phase 2</div>
-                        <div>
-                            <h4>Goal-Based Navigation</h4>
-                            <p>Reorganize the sidebar around user intent. Add cross-links between related concepts,
-                                guides, and API endpoints.</p>
-                        </div>
+
+                    <div
+                        style="background:var(--surface-warm); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:12px;">
+                        <h4 style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:6px;">
+                            Preventing Documentation Drift → Finding #6
+                        </h4>
+                        <p style="font-size:13px; color:var(--ink-secondary); line-height:1.6; margin:0;">
+                            Proactive troubleshooting embedded in setup docs prevents the "docs falling out of date"
+                            problem. This is a process design fix, not just content cleanup.
+                        </p>
                     </div>
-                    <div class="phase-row">
-                        <div class="phase-badge p3">Phase 3</div>
-                        <div>
-                            <h4>Verification Loops</h4>
-                            <p>Add "how to verify" blocks after every guide. Add outcome-based learning paths.</p>
-                        </div>
+
+                    <div
+                        style="background:var(--surface-warm); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:12px;">
+                        <h4 style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:6px;">
+                            AI Readability → Findings #3, #4
+                        </h4>
+                        <p style="font-size:13px; color:var(--ink-secondary); line-height:1.6; margin:0;">
+                            Structured error messages and minimal working examples make docs machine-parseable. LLMs can
+                            generate better code if examples are complete, isolated, and copy-paste ready.
+                        </p>
                     </div>
-                    <div class="phase-row">
-                        <div class="phase-badge p4">Phase 4</div>
-                        <div>
-                            <h4>Interactive API Docs</h4>
-                            <p>OpenAPI spec + interactive renderer. Bigger investment, but high payoff for developer
-                                experience.</p>
-                        </div>
+
+                    <div
+                        style="background:var(--surface-warm); border:1px solid var(--border); border-radius:10px; padding:18px 20px;">
+                        <h4 style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:6px;">
+                            Cross-Team Coordination → Finding #7
+                        </h4>
+                        <p style="font-size:13px; color:var(--ink-secondary); line-height:1.6; margin:0;">
+                            Cross-platform confusion reveals gaps in how Engineering, Product, and Docs coordinate. This
+                            needs a process fix: pre-ship documentation reviews and platform-specific validation
+                            checklists.
+                        </p>
                     </div>
                 </div>
             </div>
+
         </div>
         <footer>Chris Peterson &mdash; Austin, TX &mdash; chriskpeterson@gmail.com</footer>
     </div>
 
-    <!-- ════════════════════════════════════════════
-     WORK PAGE
-     ══════════════════════════════════════════ -->
     <div id="page-work" class="page">
         <div class="content-wrap">
             <div class="work-hero">
                 <div class="section-label">Work</div>
-                <h1>Things I built<br>while researching</h1>
-                <p>Ideas are cheap. I'd rather show you what I do with them. These are live, working prototypes — not
-                    mockups or wireframes. Each one came out of a specific question I was trying to answer.</p>
+                <h1>Prototypes I built</h1>
+                <p>Ideas are cheap. I'd rather show you what I do with them. These are AI-assisted prototypes — not
+                    production code, but working demonstrations of the concepts from my research.</p>
             </div>
 
-            <!-- Piece 1: Developer Guide -->
+            <div class="work-disclaimer">
+                <p><strong>Note on prototypes:</strong> These are AI-assisted builds based on my research and
+                    specifications. They demonstrate concept and direction rather than production-ready code. In the
+                    role, I'd work with your engineering team to implement these strategies in your existing
+                    documentation infrastructure.</p>
+            </div>
+
             <div class="work-piece">
                 <div class="work-piece-header">
                     <div>
@@ -1335,7 +1658,6 @@
                 </div>
             </div>
 
-            <!-- Piece 2: Strategy Preview -->
             <div class="work-piece">
                 <div class="work-piece-header">
                     <div>
@@ -1371,7 +1693,6 @@
                 </div>
             </div>
 
-            <!-- Piece 3: SimpleNotes Integration Plan -->
             <div class="work-piece">
                 <div class="work-piece-header">
                     <div>
@@ -1418,9 +1739,143 @@
         <footer>Chris Peterson &mdash; Austin, TX &mdash; chriskpeterson@gmail.com</footer>
     </div>
 
-    <!-- ════════════════════════════════════════════
-     RESUME PAGE
-     ══════════════════════════════════════════ -->
+    <div id="page-taxonomy" class="page">
+        <div class="content-wrap">
+            <div class="research-hero">
+                <div class="section-label">Information Architecture</div>
+                <h1>The Knowledge Taxonomy</h1>
+                <p>To scale documentation in an async-first environment, we must move beyond a "flat" list of pages.
+                    This taxonomy transforms our documentation into a structured data set that serves both developers
+                    and AI agents.</p>
+            </div>
+
+            <div class="finding">
+                <h3>1. The Object Hierarchy</h3>
+                <p>We map RevenueCat's technical entities to a clear four-tier taxonomy. This ensures that every page
+                    has a "home" and developers always know their location in the integration lifecycle.</p>
+
+                <div class="finding-detail">
+                    <table style="width:100%; border-collapse: collapse; font-size: 13px; color: var(--ink-secondary);">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--border);">
+                                <th style="text-align:left; padding: 12px 8px; color: var(--ink);">Domain</th>
+                                <th style="text-align:left; padding: 12px 8px; color: var(--ink);">Entities</th>
+                                <th style="text-align:left; padding: 12px 8px; color: var(--ink);">Primary Goal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border-light);">
+                                <td style="padding: 12px 8px;"><strong>Product Catalog</strong></td>
+                                <td style="padding: 12px 8px;">Products, Packages, Offerings, Entitlements</td>
+                                <td style="padding: 12px 8px;">Defining the "Source of Truth" configuration.</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-light);">
+                                <td style="padding: 12px 8px;"><strong>Implementation</strong></td>
+                                <td style="padding: 12px 8px;">SDKs, User IDs, Aliasing, Testing</td>
+                                <td style="padding: 12px 8px;">Writing code and handling the purchase lifecycle.</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-light);">
+                                <td style="padding: 12px 8px;"><strong>Growth</strong></td>
+                                <td style="padding: 12px 8px;">Paywalls, Experiments, Targeting</td>
+                                <td style="padding: 12px 8px;">Optimizing revenue via remote configuration.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 8px;"><strong>Operations</strong></td>
+                                <td style="padding: 12px 8px;">Webhooks, Analytics, Customer Lists</td>
+                                <td style="padding: 12px 8px;">Post-purchase data flow and business logic.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="finding">
+                <h3>2. The Metadata Schema</h3>
+                <p>By treating "Docs-as-Code," we tag every page with frontmatter metadata. This allows us to build a
+                    "Self-Service" KB where users can filter by their specific tech stack or business role.</p>
+
+                <div class="ai-grid" style="margin-top: 20px;">
+                    <div class="ai-meta-block">
+                        <span class="dim">---</span><br>
+                        <span class="key">rc_entity:</span> Offering<br>
+                        <span class="key">platform:</span> [iOS, Android, Stripe]<br>
+                        <span class="key">audience:</span> [Developer, Product Manager]<br>
+                        <span class="key">lifecycle:</span> General Availability<br>
+                        <span class="key">api_version:</span> v2<br>
+                        <span class="dim">---</span>
+                    </div>
+                    <div class="finding-detail" style="margin-top:0;">
+                        <h4>Strategic Value</h4>
+                        <ul style="margin-left: 15px; font-size: 13px; line-height: 1.6;">
+                            <li><strong>AI Readiness:</strong> Provides context for RAG systems.</li>
+                            <li><strong>Contextual Filtering:</strong> Allows a Marketer to see "Offerings" without the
+                                "API v2" technical specs.</li>
+                            <li><strong>Maintenance:</strong> Easily identify pages that need updates when a specific
+                                SDK version is deprecated.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="finding">
+                <h3>3. The "Mapping Guide" Concept</h3>
+                <p>One of my Month 1 goals is to establish a "Mapping Guide" within the docs. This bridges the gap
+                    between store SKUs and code-side logic, which is currently a major point of developer friction.</p>
+
+                <div class="tf-observation">
+                    <h4><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg> Pragmatic Benefit</h4>
+                    <p>Instead of developers searching through three different Apple/Google docs, our KB provides a
+                        <strong>single table</strong> mapping their <code>Store Product IDs</code> →
+                        <code>RC Packages</code> → <code>Internal Entitlements</code>. This reduces support tickets by
+                        providing "Ground Truth" documentation.
+                    </p>
+                </div>
+            </div>
+
+            <div class="solutions-box"
+                style="background: linear-gradient(135deg, #1A1A1A 0%, #2d2d30 100%); margin-top: 48px; border-color: #2d2d30;">
+                <h3 style="color: #fff; margin-bottom: 24px;">The AI Strategy: "Hub & Spoke"</h3>
+                <p style="color: #9CA3AF; margin-bottom: 24px;">This taxonomy enables a "Hub & Spoke" model. The
+                    documentation becomes the central brain (Hub) that powers various AI and human endpoints (Spokes).
+                </p>
+
+                <div class="skills-grid" style="gap: 16px;">
+                    <div class="int-card"
+                        style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                        <h5 style="color: #fff;">The Hub (Source)</h5>
+                        <p style="color: #C4C8CC;">Structured, metadata-rich Markdown in Docusaurus. The single source
+                            of truth.</p>
+                    </div>
+
+                    <div class="int-card"
+                        style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                        <h5 style="color: #fff;">Spoke 1: The Human Reader</h5>
+                        <p style="color: #C4C8CC;">The standard documentation site, optimized for skimmability.</p>
+                    </div>
+
+                    <div class="int-card"
+                        style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                        <h5 style="color: #fff;">Spoke 2: The Agentic Layer</h5>
+                        <p style="color: #C4C8CC;">RAG-based support agent (Kapa/Algolia) for "How do I..." questions.
+                        </p>
+                    </div>
+
+                    <div class="int-card"
+                        style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                        <h5 style="color: #fff;">Spoke 3: The IDE Context</h5>
+                        <p style="color: #C4C8CC;">Exposing <code>llms.txt</code> so Cursor/Copilot can autocomplete
+                            valid code.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>Chris Peterson &mdash; Austin, TX &mdash; chriskpeterson@gmail.com</footer>
+    </div>
+
+
     <div id="page-resume" class="page">
         <div class="resume-wrap">
 
@@ -1460,7 +1915,6 @@
                 </div>
             </div>
 
-            <!-- Professional Profile -->
             <div class="resume-section resume-profile">
                 <div class="resume-section-title">Professional Profile</div>
                 <p>Technical operations and strategy leader with over a decade of experience optimizing information
@@ -1469,7 +1923,6 @@
                     managing complex cross-functional programs to increase efficiency and reduce support costs.</p>
             </div>
 
-            <!-- Experience -->
             <div class="resume-section">
                 <div class="resume-section-title">Experience</div>
 
@@ -1547,7 +2000,6 @@
                 </div>
             </div>
 
-            <!-- Skills -->
             <div class="resume-section">
                 <div class="resume-section-title">Technical Skills &amp; Tools</div>
                 <div class="skills-grid">
@@ -1591,7 +2043,6 @@
                 </div>
             </div>
 
-            <!-- Education -->
             <div class="resume-section">
                 <div class="resume-section-title">Education</div>
                 <div class="edu-row">
@@ -1607,7 +2058,6 @@
         </div>
     </div>
 
-    <!-- ─── JS ─── -->
     <script>
         (function () {
             // ── Navigation
