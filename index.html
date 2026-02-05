@@ -22,12 +22,13 @@
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; font-size:16px; }
   body {
     font-family:'Inter',sans-serif;
     color:var(--ink);
     background:var(--surface);
-    line-height:1.6;
+    line-height:1.7;
+    font-size:16px;
   }
 
   /* ─── CONTAINER ─── */
@@ -48,7 +49,7 @@
   section { margin-bottom:clamp(40px,8vw,60px); }
   .section-label {
     display:inline-flex; align-items:center; gap:8px;
-    font-size:11px; font-weight:700; letter-spacing:0.1em;
+    font-size:12px; font-weight:700; letter-spacing:0.1em;
     text-transform:uppercase; color:var(--rc-red);
     margin-bottom:12px;
   }
@@ -58,7 +59,7 @@
   .hero { padding-bottom:32px; border-bottom:1px solid var(--border); }
   .hero-eyebrow {
     display:inline-flex; align-items:center; gap:8px;
-    font-size:12px; font-weight:600; color:var(--rc-red);
+    font-size:13px; font-weight:600; color:var(--rc-red);
     background:var(--rc-red-light); border:1px solid var(--rc-red-mid);
     padding:6px 14px; border-radius:100px; margin-bottom:24px;
   }
@@ -68,10 +69,10 @@
   }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   .hero p {
-    font-size:17px; color:var(--ink-secondary); max-width:600px;
+    font-size:19px; color:var(--ink-secondary); max-width:600px;
     margin-bottom:20px; line-height:1.7;
   }
-  .hero-stat { font-size:14px; color:var(--ink-tertiary); }
+  .hero-stat { font-size:16px; color:var(--ink-tertiary); }
   .hero-stat strong { color:var(--ink); }
 
   /* ─── DEMO SHOWCASE (the key visual section) ─── */
@@ -101,10 +102,26 @@
     display:flex; align-items:center; justify-content:center;
     position:relative; overflow:hidden;
   }
-  .demo-preview iframe {
+  /* Visual preview mock - gradient with text */
+  .demo-preview-mock {
     width:100%; height:100%;
-    border:none; pointer-events:none;
-    transform:scale(0.85); transform-origin:top left;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:16px; padding:32px;
+    background:linear-gradient(135deg, var(--surface-warm) 0%, #F3F4F6 100%);
+  }
+  .demo-preview-mock .mock-icon {
+    width:56px; height:56px; border-radius:12px;
+    background:var(--rc-red-light); color:var(--rc-red);
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px;
+  }
+  .demo-preview-mock .mock-title {
+    font-size:15px; font-weight:600; color:var(--ink);
+    font-family:'Playfair Display',serif;
+  }
+  .demo-preview-mock .mock-desc {
+    font-size:11px; color:var(--ink-tertiary);
+    text-align:center; max-width:200px;
   }
   .demo-preview-overlay {
     position:absolute; top:0; left:0; right:0; bottom:0;
@@ -124,11 +141,11 @@
 
   /* Card content */
   .demo-content { padding:24px; }
-  .demo-content h3 { font-size:18px; font-weight:700; color:var(--ink); margin-bottom:8px; }
-  .demo-content p { font-size:13px; color:var(--ink-secondary); line-height:1.6; margin-bottom:16px; }
+  .demo-content h3 { font-size:20px; font-weight:700; color:var(--ink); margin-bottom:8px; }
+  .demo-content p { font-size:15px; color:var(--ink-secondary); line-height:1.6; margin-bottom:16px; }
   .demo-tech-row { display:flex; flex-wrap:wrap; gap:6px; }
   .demo-tech {
-    font-size:11px; font-weight:600;
+    font-size:12px; font-weight:600;
     background:var(--surface-warm); color:var(--ink-secondary);
     border:1px solid var(--border); padding:4px 10px; border-radius:6px;
   }
@@ -155,8 +172,8 @@
     display:flex; align-items:center; justify-content:center;
     font-size:15px; font-weight:700; flex-shrink:0;
   }
-  .insight h4 { font-size:16px; font-weight:600; color:var(--ink); margin-bottom:6px; font-family:'Inter',sans-serif; }
-  .insight p { font-size:14px; color:var(--ink-secondary); line-height:1.6; }
+  .insight h4 { font-size:18px; font-weight:600; color:var(--ink); margin-bottom:6px; font-family:'Inter',sans-serif; }
+  .insight p { font-size:16px; color:var(--ink-secondary); line-height:1.6; }
 
   /* ─── RESUME ─── */
   .resume { padding-top:32px; }
@@ -166,8 +183,8 @@
     margin-bottom:32px; gap:20px; flex-wrap:wrap;
   }
   .resume-header h2 { margin-bottom:4px; }
-  .resume-header .title { font-size:15px; color:var(--ink-secondary); }
-  .resume-contact { font-size:13px; color:var(--ink-tertiary); margin-top:8px; }
+  .resume-header .title { font-size:17px; color:var(--ink-secondary); }
+  .resume-contact { font-size:15px; color:var(--ink-tertiary); margin-top:8px; }
   .resume-contact a { color:var(--rc-red); text-decoration:none; }
 
   .resume-role {
@@ -176,21 +193,21 @@
   }
   .resume-role:last-child { border-bottom:none; }
   .role-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; flex-wrap:wrap; gap:8px; }
-  .role-header h4 { font-size:15px; font-weight:600; color:var(--ink); }
-  .role-header .company { font-size:13px; color:var(--ink-secondary); }
-  .role-header .dates { font-size:12px; color:var(--ink-tertiary); font-weight:500; }
+  .role-header h4 { font-size:17px; font-weight:600; color:var(--ink); }
+  .role-header .company { font-size:15px; color:var(--ink-secondary); }
+  .role-header .dates { font-size:14px; color:var(--ink-tertiary); font-weight:500; }
   .role-bullets { padding-left:20px; }
-  .role-bullets li { font-size:13px; color:var(--ink-secondary); line-height:1.6; padding:3px 0; }
+  .role-bullets li { font-size:15px; color:var(--ink-secondary); line-height:1.6; padding:3px 0; }
 
   .resume-skills { margin-top:32px; padding-top:24px; border-top:1px solid var(--border); }
   .resume-skills h3 { font-size:16px; margin-bottom:12px; font-family:'Inter',sans-serif; font-weight:600; }
-  .resume-skills p { font-size:14px; color:var(--ink-secondary); line-height:1.7; }
+  .resume-skills p { font-size:16px; color:var(--ink-secondary); line-height:1.7; }
 
   /* ─── FOOTER ─── */
   footer {
     margin-top:clamp(40px,8vw,60px);
     padding-top:32px; border-top:1px solid var(--border);
-    text-align:center; font-size:13px; color:var(--ink-tertiary);
+    text-align:center; font-size:14px; color:var(--ink-tertiary);
   }
   footer a { color:var(--rc-red); text-decoration:none; }
 </style>
@@ -218,14 +235,18 @@
   <section class="demo-showcase">
     <div class="section-label">What I Built</div>
     <h2>Live Prototypes</h2>
-    <p style="font-size:15px;color:var(--ink-secondary);max-width:640px;margin-bottom:0;">These aren't mockups or wireframes — they're fully functional sites. Click to open them and see the work for yourself.</p>
+    <p style="font-size:17px;color:var(--ink-secondary);max-width:640px;margin-bottom:0;">These aren't mockups or wireframes — they're fully functional sites. Click to open them and see the work for yourself.</p>
 
     <div class="demo-grid">
       <!-- Demo 1: Developer Guide -->
       <div class="demo-card">
         <a href="index_demo1.html" target="_blank" style="text-decoration:none;color:inherit;">
           <div class="demo-preview">
-            <iframe src="index_demo1.html" scrolling="no"></iframe>
+            <div class="demo-preview-mock">
+              <div class="mock-icon">⚡</div>
+              <div class="mock-title">Developer Guide</div>
+              <div class="mock-desc">Task-first integration walkthrough with multi-language code</div>
+            </div>
             <div class="demo-preview-overlay">
               <div class="demo-preview-badge">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -251,7 +272,11 @@
       <div class="demo-card">
         <a href="index_demo2.html" target="_blank" style="text-decoration:none;color:inherit;">
           <div class="demo-preview">
-            <iframe src="index_demo2.html" scrolling="no"></iframe>
+            <div class="demo-preview-mock">
+              <div class="mock-icon">📊</div>
+              <div class="mock-title">Strategy Preview</div>
+              <div class="mock-desc">Executive roadmap with interactive experience mockups</div>
+            </div>
             <div class="demo-preview-overlay">
               <div class="demo-preview-badge">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -275,8 +300,8 @@
 
     <!-- SimpleNotes Integration Plan -->
     <div style="margin-top:24px;padding:24px;border:1px solid var(--border);border-radius:14px;background:var(--surface-warm);">
-      <h3 style="font-size:17px;font-weight:600;color:var(--ink);margin-bottom:10px;">SimpleNotes — The Integration Test</h3>
-      <p style="font-size:14px;color:var(--ink-secondary);line-height:1.65;margin-bottom:14px;">To find where the docs break down, you have to actually use them. I designed a cross-platform freemium note-taking app and walked through the entire RevenueCat setup as if I were building it for real. The gaps I found became the research that drives the strategy.</p>
+      <h3 style="font-size:19px;font-weight:600;color:var(--ink);margin-bottom:10px;">SimpleNotes — The Integration Test</h3>
+      <p style="font-size:16px;color:var(--ink-secondary);line-height:1.65;margin-bottom:14px;">To find where the docs break down, you have to actually use them. I designed a cross-platform freemium note-taking app and walked through the entire RevenueCat setup as if I were building it for real. The gaps I found became the research that drives the strategy.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;">
         <div style="padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
           <div style="font-size:12px;font-weight:600;color:var(--ink);margin-bottom:3px;">Free Tier</div>
@@ -300,7 +325,7 @@
   <section class="insights">
     <div class="section-label">Research Findings</div>
     <h2>Three Key Insights</h2>
-    <p style="font-size:15px;color:var(--ink-secondary);max-width:640px;margin-bottom:0;">These aren't prescriptions — they're observations from someone who spent time actually using the product and reading the docs as a developer would.</p>
+    <p style="font-size:17px;color:var(--ink-secondary);max-width:640px;margin-bottom:0;">These aren't prescriptions — they're observations from someone who spent time actually using the product and reading the docs as a developer would.</p>
 
     <div class="insight-list">
       <div class="insight">
@@ -340,7 +365,7 @@
         <div class="title">Staff Technical Writer (Lead) — HP / Poly</div>
         <div class="resume-contact">
           Austin, TX &middot; 
-          <a href="mailto:chriskpeterson@gmail.com">chriskpeterson@gmail.com</a> &middot; 
+          <a href="/cdn-cgi/l/email-protection#07646f756e746c776273627574686947606a666e6b2964686a"><span class="__cf_email__" data-cfemail="e182899388928a9184958493928e8fa1868c80888dcf828e8c">[email&#160;protected]</span></a> &middot; 
           713-344-4988
         </div>
       </div>
@@ -398,9 +423,4 @@
 
 </div>
 
-<footer>
-  Chris Peterson &mdash; Austin, TX &mdash; <a href="mailto:chriskpeterson@gmail.com">chriskpeterson@gmail.com</a>
-</footer>
-
-</body>
-</html>
+<foote
