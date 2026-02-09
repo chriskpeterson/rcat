@@ -108,7 +108,7 @@
 
         h1 {
             font-family: 'Crimson Pro', serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2.2rem, 8vw, 4.2rem);
             font-weight: 300;
             line-height: 1.1;
             margin-bottom: 1.5rem;
@@ -122,27 +122,8 @@
         .hero p {
             font-size: 1.25rem;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 700px;
             animation: fadeInUp 1s ease-out 0.2s backwards;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        .scroll-indicator svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--secondary);
         }
 
         section {
@@ -153,7 +134,7 @@
 
         h2 {
             font-family: 'Crimson Pro', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 5vw, 2.8rem);
             font-weight: 400;
             margin-bottom: 3rem;
             position: relative;
@@ -170,73 +151,30 @@
             background: linear-gradient(90deg, var(--accent), var(--secondary));
         }
 
-        .requirement-grid {
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
 
-        .requirement-card {
+        .card {
             background: white;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--accent);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInCard 0.6s ease-out forwards;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--accent);
         }
 
-        @keyframes fadeInCard {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .requirement-card:nth-child(1) { animation-delay: 0.1s; }
-        .requirement-card:nth-child(2) { animation-delay: 0.2s; }
-        .requirement-card:nth-child(3) { animation-delay: 0.3s; }
-        .requirement-card:nth-child(4) { animation-delay: 0.4s; }
-        .requirement-card:nth-child(5) { animation-delay: 0.5s; }
-        .requirement-card:nth-child(6) { animation-delay: 0.6s; }
-
-        .requirement-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .requirement-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .requirement-label {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            background: var(--mid);
-            border-radius: 20px;
+        .card h3 {
+            font-size: 1.4rem;
             margin-bottom: 1rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--primary);
         }
 
-        .requirement-card p {
+        .card p {
             color: #555;
-            line-height: 1.7;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, rgba(78, 205, 196, 0.2) 0%, rgba(255, 107, 53, 0.2) 100%);
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-weight: 500;
+            font-size: 1rem;
         }
 
         .timeline {
@@ -251,69 +189,49 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--accent), var(--secondary));
+            width: 2px;
+            background: var(--mid);
         }
 
         .timeline-item {
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             position: relative;
-            opacity: 0;
-            animation: fadeInLeft 0.6s ease-out forwards;
-        }
-
-        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
-        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
-        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -3.5rem;
+            left: -3.45rem;
             top: 0.5rem;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             background: var(--accent);
             border-radius: 50%;
-            border: 3px solid var(--light);
-            box-shadow: 0 0 0 3px var(--primary);
         }
 
         .timeline-item h3 {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
             color: var(--primary);
         }
 
         .timeline-item .period {
             color: var(--accent);
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             margin-bottom: 1rem;
             display: block;
         }
 
         .timeline-item ul {
             list-style: none;
-            padding-left: 0;
+            margin-top: 1rem;
         }
 
         .timeline-item li {
             padding-left: 1.5rem;
             position: relative;
             margin-bottom: 0.75rem;
-            color: #555;
+            color: #444;
         }
 
         .timeline-item li::before {
@@ -321,302 +239,175 @@
             position: absolute;
             left: 0;
             color: var(--secondary);
-            font-weight: bold;
         }
 
-        .why-section {
+        .strategy-box {
             background: white;
+            padding: 3rem;
             border-radius: 20px;
-            padding: 4rem 3rem;
-            margin-top: 3rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            margin-top: 2rem;
         }
 
-        .why-section h3 {
-            font-family: 'Crimson Pro', serif;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-
-        .why-section p {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
+        .hypothesis-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
-            margin: 3rem 0;
+            margin-top: 2rem;
         }
 
-        .stat {
-            text-align: center;
-            padding: 2rem;
-            background: linear-gradient(135deg, var(--primary), #1a1f3a);
-            color: white;
-            border-radius: 12px;
-            opacity: 0;
-            animation: popIn 0.6s ease-out forwards;
-        }
-
-        .stat:nth-child(1) { animation-delay: 0.1s; }
-        .stat:nth-child(2) { animation-delay: 0.2s; }
-        .stat:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .stat-number {
-            font-family: 'Crimson Pro', serif;
-            font-size: 3rem;
-            font-weight: 600;
-            color: var(--accent);
-            display: block;
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--mid);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 0.5rem;
         }
 
-        .stat-label {
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
-        }
-
         .cta-section {
+            background: var(--primary);
+            color: white;
             text-align: center;
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--primary), #1a1f3a);
-            color: white;
-            width: 100%;
-            margin: 0;
-        }
-
-        .cta-section h2 {
-            color: white;
-            margin-bottom: 2rem;
-        }
-
-        .cta-section h2::after {
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
+            padding: 8rem 2rem;
         }
 
         .btn {
             display: inline-block;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 1.125rem;
-        }
-
-        .btn-primary {
+            padding: 1.2rem 3rem;
             background: var(--accent);
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-top: 2rem;
+            transition: transform 0.2s ease;
         }
 
-        .btn-primary:hover {
-            background: #ff5722;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid var(--secondary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: var(--primary);
-            color: white;
-            opacity: 0.7;
-            font-size: 0.875rem;
+        .btn:hover {
+            transform: translateY(-3px);
         }
 
         @media (max-width: 768px) {
-            section {
-                padding: 4rem 1.5rem;
-            }
-
-            .requirement-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline {
-                padding-left: 2rem;
-            }
-
-            .why-section {
-                padding: 2rem 1.5rem;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
+            .hypothesis-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
+
     <section class="hero">
         <div class="hero-content">
-            <div class="eyebrow">Cover Letter</div>
-            <h1>Why I'm the right fit for<br><strong>RevenueCat's Documentation</strong></h1>
-            <p>A systems thinker with proven experience building documentation that scales, educates, and becomes a competitive advantage.</p>
-        </div>
-        <div class="scroll-indicator">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M19 12l-7 7-7-7"/>
-            </svg>
+            <div class="eyebrow">The First Hire For Documentation</div>
+            <h1>Making RevenueCat's documentation a<br><strong>durable competitive advantage.</strong></h1>
+            <p>I’m a system-thinking technical writer with 10+ years of experience. I’m ready to move beyond the page to design a documentation ecosystem that scales for both humans and machines.</p>
         </div>
     </section>
 
     <section>
-        <h2>How I Match Your Requirements</h2>
-        <div class="requirement-grid">
-            <div class="requirement-card">
-                <span class="requirement-label">Experience</span>
-                <h3>8+ Years in Technical Documentation</h3>
-                <p>Led documentation strategy for <span class="highlight">developer platforms and API-driven products</span>, with direct ownership of git-based, markdown-driven systems including Docusaurus implementations.</p>
+        <h2>Systems Over Pages</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>System Ownership</h3>
+                <p>I don't just write docs; I design the architecture. My experience at HP/Poly involves managing content lifecycles that bridge the gap between complex engineering specs and seamless developer onboarding.</p>
             </div>
-
-            <div class="requirement-card">
-                <span class="requirement-label">Systems Thinking</span>
-                <h3>Information Architecture Expert</h3>
-                <p>Designed and implemented <span class="highlight">comprehensive documentation systems</span> that support multiple user journeys—from quick-start guides to deep technical references—without fragmenting the experience.</p>
+            <div class="card">
+                <h3>Human & AI Readability</h3>
+                <p>In an AI-first world, docs are consumed by both developers and LLMs. I focus on high-density, structured content that ensures accuracy whether it's being read in a browser or referenced by an AI agent.</p>
             </div>
-
-            <div class="requirement-card">
-                <span class="requirement-label">Technical Depth</span>
-                <h3>Engineering Partnership</h3>
-                <p>Built tight collaboration loops with engineering teams, establishing <span class="highlight">processes that prevent docs from falling out of date</span> as products evolve rapidly.</p>
-            </div>
-
-            <div class="requirement-card">
-                <span class="requirement-label">Editorial Excellence</span>
-                <h3>Brand & Style Leadership</h3>
-                <p>Developed and enforced documentation style guides that ensure <span class="highlight">consistent voice, tone, and quality</span> across content written by engineers, PMs, and technical writers.</p>
-            </div>
-
-            <div class="requirement-card">
-                <span class="requirement-label">AI-Ready</span>
-                <h3>Future-Focused Documentation</h3>
-                <p>Structured content for <span class="highlight">both human and machine consumption</span>, anticipating how LLMs and AI-driven tooling will surface documentation to developers.</p>
-            </div>
-
-            <div class="requirement-card">
-                <span class="requirement-label">Cross-Functional</span>
-                <h3>Remote, Async-First Collaboration</h3>
-                <p>Thrived in distributed teams, partnering with Product, Engineering, Design, and Marketing to create <span class="highlight">cohesive learning ecosystems</span> that extend beyond core docs.</p>
+            <div class="card">
+                <h3>Iterative Pragmatism</h3>
+                <p>I default to ownership and action. I believe in shipping improvements iteratively—solving immediate friction for customers while building the long-term playbook for a scaling system.</p>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2>Relevant Experience</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <h3>Documentation Systems Overhaul</h3>
-                <span class="period">Previous Role</span>
-                <ul>
-                    <li>Restructured entire documentation architecture to separate getting-started content, feature docs, API references, and troubleshooting guides</li>
-                    <li>Reduced time-to-first-integration by 40% through clearer navigation and progressive disclosure</li>
-                    <li>Implemented automated testing to catch broken links and outdated code examples before deployment</li>
-                    <li>Created templates and workflows that enabled engineers to contribute high-quality docs without becoming a bottleneck</li>
-                </ul>
-            </div>
-
-            <div class="timeline-item">
-                <h3>Git-Based Documentation Platform</h3>
-                <span class="period">Previous Role</span>
-                <ul>
-                    <li>Migrated legacy documentation to Docusaurus, establishing version control and review processes</li>
-                    <li>Built CI/CD pipelines that auto-deploy docs on merge, with staging environments for preview</li>
-                    <li>Integrated documentation directly into developer workflows through IDE extensions and CLI tools</li>
-                    <li>Collaborated with engineering to ensure new features shipped with complete, tested documentation</li>
-                </ul>
-            </div>
-
-            <div class="timeline-item">
-                <h3>Multi-Format Learning Ecosystem</h3>
-                <span class="period">Previous Role</span>
-                <ul>
-                    <li>Expanded documentation into video tutorials, interactive code samples, and blog-based deep dives</li>
-                    <li>Ensured all formats reinforced (rather than fragmented) the core documentation story</li>
-                    <li>Partnered with Developer Advocacy to create content that served both discovery and depth</li>
-                    <li>Measured impact through analytics: reduced support tickets by 25% for documented features</li>
-                </ul>
+    <section style="background: rgba(0,0,0,0.02);">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <h2>Relevant Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Staff Technical Writer — HP/Poly</h3>
+                    <span class="period">April 2022 — Present</span>
+                    <ul>
+                        <li>Owner of end-to-end documentation for enterprise video/audio products, ensuring a coherent story across hardware and software platforms.</li>
+                        <li>Partnered with engineering squads to ensure new features shipped with accurate, high-quality technical guides.</li>
+                        <li>Reduced support friction by building compatibility matrices and troubleshooting guides that allow users to self-serve.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h3>Senior Technical Writer — Plantronics, Inc.</h3>
+                    <span class="period">October 2019 — April 2022</span>
+                    <ul>
+                        <li>Led the transition to a structured authoring system (DITA XML), enabling content reuse and consistency across global documentation sets.</li>
+                        <li>Optimized information architecture and taxonomy, resulting in significantly higher content discoverability for technical users.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h3>Senior Technical Writer — Various</h3>
+                    <span class="period">2012 — 2019</span>
+                    <ul>
+                        <li>Worked alongside ASIC and SoC engineers to document complex microarchitectural concepts.</li>
+                        <li>Bridged the gap between Product, Engineering, and Support to maintain a "single source of truth" for technical specs.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
     <section>
-        <div class="why-section">
-            <h3>Why This Role Excites Me</h3>
-            <p>RevenueCat sits at a critical inflection point: strong individual docs that need to become a cohesive system. This is exactly the challenge I'm built for.</p>
+        <h2>Initial Audit & Hypotheses</h2>
+        <p style="font-size: 1.1rem; color: #666; max-width: 800px;">I spent time integrating into your current documentation as a new user. While I'm eager to validate these with your team, here is my "outside-in" assessment of the opportunities ahead.</p>
+        
+        <div class="strategy-box">
+            <div class="badge">Information Architecture</div>
+            <h3 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Hypothesis: Reorganizing for the Developer Lifecycle</h3>
+            <p>Currently, the "Dashboard vs SDK" split can create cognitive load. I suspect we could reduce friction by aligning the navigation to the developer's journey:</p>
             
-            <p>I've spent my career turning documentation from "the thing we update after shipping" into a strategic asset that accelerates developer success and reduces friction. I know how to design information architecture that works for someone integrating RevenueCat for the first time AND someone migrating a complex existing implementation.</p>
-
-            <p>What sets me apart is my ability to <strong>think in systems while sweating the details</strong>. I can zoom out to redesign your entire docs structure, then zoom in to edit a confusing sentence in a code comment. I push back when documentation placement undermines user experience, but I ship iteratively rather than waiting for perfection.</p>
-
-            <p>Most importantly: I treat AI readability as a first-class concern. Your docs won't just serve humans browsing the web—they'll be the source LLMs use to help developers integrate RevenueCat. That requires intentional structure, clear semantics, and machine-friendly formatting from day one.</p>
-        </div>
-
-        <div class="stats">
-            <div class="stat">
-                <span class="stat-number">40%</span>
-                <span class="stat-label">Faster Integration</span>
+            <div class="hypothesis-grid">
+                <div style="background: var(--light); padding: 1.5rem; border-radius: 8px;">
+                    <strong style="color: var(--accent);">01. Foundation (Day 1)</strong>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem;">"Get me integrated." Unified quickstarts that combine Dashboard and SDK setup into a single successful purchase flow.</p>
+                </div>
+                <div style="background: var(--light); padding: 1.5rem; border-radius: 8px;">
+                    <strong style="color: var(--accent);">02. Conversion (Day 7)</strong>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem;">"Get me paid." Grouping Paywalls, Offerings, and Web Billing into a cohesive "Store Building" ecosystem.</p>
+                </div>
+                <div style="background: var(--light); padding: 1.5rem; border-radius: 8px;">
+                    <strong style="color: var(--accent);">03. Optimization (Day 30)</strong>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem;">"Get me more." Moving high-value growth tools like Experiments and Targeting from sub-menus to the forefront.</p>
+                </div>
+                <div style="background: var(--light); padding: 1.5rem; border-radius: 8px;">
+                    <strong style="color: var(--accent);">04. Operations (Ongoing)</strong>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem;">"Help me scale." Creating a dedicated home for troubleshooting, customer support tools, and data exports.</p>
+                </div>
             </div>
-            <div class="stat">
-                <span class="stat-number">25%</span>
-                <span class="stat-label">Fewer Support Tickets</span>
-            </div>
-            <div class="stat">
-                <span class="stat-number">100%</span>
-                <span class="stat-label">Documentation Coverage</span>
+
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--mid);">
+                <div class="badge">Evergreen Systems</div>
+                <h3 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Building a Durable Maintenance Loop</h3>
+                <p>I don't have all the answers for your specific GitHub workflow yet, but I'm eager to learn your stack and help design processes that prevent documentation lag. My goal is to ensure that "shipped" always means "documented" by:</p>
+                <ul style="margin-top: 1rem; list-style: none;">
+                    <li style="margin-bottom: 0.5rem;">• Collaborating on PR templates that make doc requirements a standard part of the "Definition of Done."</li>
+                    <li style="margin-bottom: 0.5rem;">• Working with Engineering to ensure sample app snippets are the source of truth for our code examples.</li>
+                    <li style="margin-bottom: 0.5rem;">• Setting up ownership loops so engineers know exactly which docs they "own" as the product grows.</li>
+                </ul>
             </div>
         </div>
     </section>
 
     <section class="cta-section">
-        <h2>Let's Talk About RevenueCat's Docs</h2>
-        <p style="font-size: 1.125rem; margin: 2rem auto; max-width: 600px; opacity: 0.9;">
-            I'd love to discuss how I can help make your documentation a durable competitive advantage.
-        </p>
-        <div class="cta-buttons">
-            <a href="/cdn-cgi/l/email-protection#bfdcd7cdd6ccffdecac7d2decbd6dcde91dcd0d2" class="btn btn-primary">Get in Touch</a>
-            <a href="#" class="btn btn-secondary">View Resume</a>
-        </div>
+        <h2 style="color: white;">Let's Build the Playbook</h2>
+        <p style="max-width: 600px; margin: 1.5rem auto; opacity: 0.8;">I'm ready to help developers succeed with less friction. I'd love to discuss how we can turn RevenueCat's documentation into your strongest competitive advantage.</p>
+        <a href="mailto:c.peterson@gmail.com" class="btn">Connect with Chris</a>
     </section>
 
-    <footer>
-        <p>Chris Peterson · Senior Documentation Manager Application · Rev
+    <footer style="padding: 3rem; text-align: center; background: #060918; color: white; opacity: 0.6; font-size: 0.8rem;">
+        &copy; 2025 Chris Peterson · Senior Documentation Manager Application
+    </footer>
+
+</body>
+</html>
