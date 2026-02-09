@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevenueCat Docs: Architectural Strategy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --rc-red: #E8383A;
+            --rc-navy: #0A0E27;
+            --rc-accent: #FF6B35;
+            --surface: #FAFAF8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--surface);
+            color: #1A1A1A;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-node {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .step-node::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #E5E7EB;
+        }
+
+        .step-node:last-child::before {
+            display: none;
+        }
+
+        .step-dot {
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: white;
+            border: 2px solid var(--rc-red);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .nav-active {
+            background: white;
+            color: var(--rc-navy);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navigation -->
+    <header class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center shrink-0 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-[#E8383A] text-white rounded flex items-center justify-center text-sm font-bold">RC
+            </div>
+            <div class="flex flex-col">
+                <span class="text-sm font-bold leading-none">RevenueCat Strategy</span>
+                <span class="text-xs text-gray-500 mt-1">Proposal: Scaling the Doc Ecosystem</span>
+            </div>
+        </div>
+
+        <div class="flex bg-gray-100 p-1 rounded-xl gap-1">
+            <button onclick="switchView('ia')" id="btn-ia"
+                class="px-5 py-2 rounded-lg text-sm font-medium transition-all nav-active">IA Framework</button>
+            <button onclick="switchView('github')" id="btn-github"
+                class="px-5 py-2 rounded-lg text-sm font-medium transition-all text-gray-500 hover:text-gray-900">Workflow
+                Explorations</button>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <span class="text-xs font-mono bg-gray-100 px-2 py-1 rounded text-gray-600">v1.0.4-beta</span>
+        </div>
+    </header>
+
+    <!-- Main Viewport -->
+    <main class="flex-1 overflow-y-auto relative">
+
+        <!-- VIEW 1: IA & LIFECYCLE STRATEGY -->
+        <div id="view-ia" class="max-w-6xl mx-auto p-12 fade-in">
+            <div class="mb-16">
+                <span class="text-[#E8383A] font-bold tracking-widest text-xs uppercase mb-3 block">Discovery &
+                    Hypotheses</span>
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">A Lifecycle-Centric Framework</h1>
+                <p class="text-xl text-gray-600 max-w-3xl">An exploration into moving from feature-based silos to a
+                    journey-based structure. This hypothesis aims to reduce cognitive load by grouping dashboard
+                    configuration with SDK implementation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Foundation -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:border-[#FF6B35] transition-colors group">
+                    <div class="w-12 h-12 bg-orange-50 text-[#FF6B35] rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">01. Foundation</h3>
+                    <p class="text-sm text-gray-500 mb-4">"Get me integrated." Exploring the minimum frictionless path
+                        to the first successful purchase.</p>
+                    <ul class="text-xs space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Unified Quickstarts
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> API Key Discovery
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Entitlement Mapping
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Conversion -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:border-[#4ECDC4] transition-colors group">
+                    <div class="w-12 h-12 bg-teal-50 text-[#4ECDC4] rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">02. Conversion</h3>
+                    <p class="text-sm text-gray-500 mb-4">"Get me paid." Proposing a unified home for storefront tools
+                        and web billing integration.</p>
+                    <ul class="text-xs space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Paywalls & Offerings
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Stripe/Paddle Flows
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Platform Settings
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Optimization -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:border-blue-500 transition-colors group">
+                    <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">03. Optimization</h3>
+                    <p class="text-sm text-gray-500 mb-4">"Get me more." Surfacing growth features as the implementation
+                        matures.</p>
+                    <ul class="text-xs space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> A/B Experiments
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Targeting & Schedules
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Data Integrations
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Operations -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:border-gray-900 transition-colors group">
+                    <div class="w-12 h-12 bg-gray-100 text-gray-900 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">04. Operations</h3>
+                    <p class="text-sm text-gray-500 mb-4">"Help me scale." Maintaining implementation health and
+                        troubleshooting at scale.</p>
+                    <ul class="text-xs space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Self-Service Tools
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Observability
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div> Webhooks & API
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-[#0A0E27] text-white p-10 rounded-3xl relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <h2 class="text-2xl font-bold mb-4">The "Vibe Coder" Opportunity</h2>
+                    <p class="text-gray-400 leading-relaxed mb-6">Revenue integrations are high-stakes. While AI can
+                        prototype a UI in seconds, a single hallucination in an entitlement check is dangerous. I see an
+                        opportunity to lead in "AI-Ready" documentation.</p>
+                    <div class="flex gap-4">
+                        <div class="bg-white/10 px-4 py-3 rounded-xl border border-white/10 flex-1">
+                            <span class="text-xs font-bold text-[#4ECDC4] uppercase">Hypothesis 1</span>
+                            <p class="text-sm mt-1">Testing <strong>llms.txt</strong> to provide high-token-density
+                                context for AI agents.</p>
+                        </div>
+                        <div class="bg-white/10 px-4 py-3 rounded-xl border border-white/10 flex-1">
+                            <span class="text-xs font-bold text-[#FF6B35] uppercase">Hypothesis 2</span>
+                            <p class="text-sm mt-1">Verification checklists focused on high-risk logic: receipts &
+                                entitlement syncing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: GITHUB INTEGRATION & PIPELINE -->
+        <div id="view-github" class="hidden max-w-5xl mx-auto p-12 fade-in">
+            <div class="mb-12">
+                <span class="text-[#E8383A] font-bold tracking-widest text-xs uppercase mb-3 block">Scaling
+                    Strategy</span>
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Workflow Explorations</h1>
+                <p class="text-xl text-gray-600">Potential avenues for bridging the gap between engineering velocity and
+                    documentation accuracy.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="md:col-span-1 space-y-12">
+                    <div class="step-node">
+                        <div class="step-dot"></div>
+                        <h4 class="font-bold text-gray-900">1. Collaborative Input</h4>
+                        <p class="text-sm text-gray-500 mt-2">Integrating doc requirements into standard PR templates to
+                            catch changes early.</p>
+                    </div>
+                    <div class="step-node">
+                        <div class="step-dot"></div>
+                        <h4 class="font-bold text-gray-900">2. Automated Awareness</h4>
+                        <p class="text-sm text-gray-500 mt-2">Exploring GitHub Actions to flag PRs that touch `/sdk`
+                            without matching `/docs` updates.</p>
+                    </div>
+                    <div class="step-node">
+                        <div class="step-dot"></div>
+                        <h4 class="font-bold text-gray-900">3. Shared Ownership</h4>
+                        <p class="text-sm text-gray-500 mt-2">Leveraging <strong>CODEOWNERS</strong> to ensure relevant
+                            squads review high-visibility technical docs.</p>
+                    </div>
+                    <div class="step-node">
+                        <div class="step-dot"></div>
+                        <h4 class="font-bold text-gray-900">4. Live Snippets</h4>
+                        <p class="text-sm text-gray-500 mt-2">Testing Docusaurus loaders to pull live code from sample
+                            apps, aiming for 100% syntax accuracy.</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 space-y-6">
+                    <!-- Workflow Mockup -->
+                    <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">revenuecat / docs-pipeline-concept.yml</span>
+                        </div>
+                        <div class="p-6 font-mono text-xs text-gray-800 space-y-2">
+                            <div class="text-blue-600">name: <span class="text-gray-900">Drift Verification
+                                    (Hypothesis)</span></div>
+                            <div class="text-blue-600">on: <span class="text-gray-900">[pull_request]</span></div>
+                            <div class="mt-4 text-blue-600">jobs:</div>
+                            <div class="pl-4 text-blue-600">audit_changes:</div>
+                            <div class="pl-8 text-blue-600">steps:</div>
+                            <div class="pl-12 text-gray-500">- name: <span class="text-gray-900">Identify SDK
+                                    modification</span></div>
+                            <div class="pl-12 text-gray-500">- name: <span class="text-gray-900">Verify associated doc
+                                    commit</span></div>
+                            <div class="pl-12 text-gray-500">- name: <span class="text-gray-900">Alert Codeowners if lag
+                                    detected</span></div>
+                            <div class="mt-4 text-gray-400"># Goal: Minimize "Doc Debt" during feature launches</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                        <h4 class="text-blue-900 font-bold mb-2 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Focus: Scaling Efficiency
+                        </h4>
+                        <p class="text-sm text-blue-800 leading-relaxed">The objective is to explore how we can move
+                            from "manual updates" to a system where documentation is an automated byproduct of the
+                            engineering lifecycle.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-gray-200">
+                            <div class="text-xs font-bold text-gray-400 uppercase">Exploration Area A</div>
+                            <div class="mt-2 text-sm font-semibold">PR Integration</div>
+                            <p class="text-xs text-gray-500 mt-1">Making doc-impact a visible metric for every
+                                engineering commit.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-200">
+                            <div class="text-xs font-bold text-gray-400 uppercase">Exploration Area B</div>
+                            <div class="mt-2 text-sm font-semibold">Health Monitoring</div>
+                            <p class="text-xs text-gray-500 mt-1">Identifying high-traffic pages that haven't kept pace
+                                with SDK versioning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer / Roadmap -->
+    <footer class="bg-white border-t border-gray-200 p-6 shrink-0 flex justify-between items-center">
+        <div class="text-sm text-gray-500">
+            <strong>Next Thought:</strong> Initial audit of current content against these proposed lifecycle buckets.
+        </div>
+        <div class="flex gap-4">
+            <button onclick="switchView('ia')" class="text-sm font-bold text-[#E8383A] hover:underline">Lifecycle
+                Breakdown</button>
+            <button onclick="switchView('github')" class="text-sm font-bold text-[#E8383A] hover:underline">Workflow
+                Explorations</button>
+        </div>
+    </footer>
+
+    <script>
+        function switchView(viewName) {
+            // Update Buttons
+            document.getElementById('btn-ia').className = viewName === 'ia'
+                ? 'px-5 py-2 rounded-lg text-sm font-medium transition-all nav-active'
+                : 'px-5 py-2 rounded-lg text-sm font-medium transition-all text-gray-500 hover:text-gray-900';
+
+            document.getElementById('btn-github').className = viewName === 'github'
+                ? 'px-5 py-2 rounded-lg text-sm font-medium transition-all nav-active'
+                : 'px-5 py-2 rounded-lg text-sm font-medium transition-all text-gray-500 hover:text-gray-900';
+
+            // Update Views
+            const iaView = document.getElementById('view-ia');
+            const githubView = document.getElementById('view-github');
+
+            if (viewName === 'ia') {
+                iaView.classList.remove('hidden');
+                githubView.classList.add('hidden');
+            } else {
+                iaView.classList.add('hidden');
+                githubView.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>
